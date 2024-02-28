@@ -1,0 +1,121 @@
+:root {
+  --main-bg-color: #020202;
+  --main-text-color: #ffffff;
+  --primary-color: #16db65;
+  --secondary-color: #0d2818;
+
+  --small-text-size: 18px;
+  --medium-text-size: 28px;
+
+  --transation-duration: 0.2s;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "JetBrains Mono", monospace;
+}
+
+body {
+  background-color: var(--main-bg-color);
+}
+
+.container {
+  width: 100%;
+  padding: 0 100px;
+  background-color: #0d281850;
+}
+
+.navbar {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.navbar .logo {
+  width: 120px;
+}
+
+.navbar .menu-btn {
+  display: none;
+  font-weight: 400;
+  font-size: 32px;
+  color: var(--main-text-color);
+  cursor: pointer;
+  transition: var(--transation-duration) ease-in-out;
+}
+
+.navbar .menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar .menu li {
+  margin-left: 25px;
+}
+
+.navbar .menu li a {
+  font-weight: 400;
+  font-size: var(--small-text-size);
+  text-decoration: none;
+  color: var(--main-text-color);
+  transition: var(--transation-duration) ease-in-out;
+}
+
+.navbar .menu li a:hover {
+  color: var(--primary-color);
+}
+
+.navbar .menu li .active {
+  color: var(--primary-color);
+}
+
+@media (max-width: 768px) {
+  .navbar .hide-menu {
+    display: none;
+  }
+
+  .navbar .menu-btn {
+    display: block;
+  }
+
+  .navbar .menu-btn:hover {
+    color: var(--primary-color);
+  }
+
+  .navbar .menu {
+    width: 200px;
+    height: calc(100% - 70px);
+    background-color: var(--secondary-color);
+    flex-direction: column;
+    justify-content: flex-start;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    list-style: none;
+  }
+
+  .navbar .menu li {
+    width: 100%;
+    margin: 0;
+  }
+
+  .navbar .menu li a {
+    display: block;
+    width: 100%;
+    padding: 20px;
+  }
+
+  .navbar .menu li a:hover {
+    background-color: #0c8a3e;
+  }
+
+  .container {
+    padding: 0 25px;
+  }
+}
