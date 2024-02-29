@@ -6,19 +6,23 @@
     <title>EDU Site</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/all.min.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/style.css" />
   </head>
-  <body>
+  <body onscroll="navbarScroll()">
     <!-- Navbar -->
-    <header class="container">
+    <header id="Header" class="container">
       <nav class="navbar">
         <img class="logo" src="imgs/Logo.png" alt="page_logo" />
-        <i class="menu-btn fa-solid fa-bars" id="menuBtn" onclick="menuToggler()"></i>
+        <i
+          class="menu-btn fa-solid fa-bars"
+          id="menuBtn"
+          onclick="menuToggler()"
+        ></i>
         <ul class="menu hide-menu" id="myMenu">
           <li><a class="active" href="#">Home</a></li>
           <li><a href="#">Courses</a></li>
@@ -27,6 +31,113 @@
         </ul>
       </nav>
     </header>
+
+    <!-- Hero Section -->
+    <section class="container hero">
+      <h1>A New Way Of Learning</h1>
+      <h3>Modern Learning is Here</h3>
+      <div>
+        <a class="sign-up-btn" href="#">Sign Up</a>
+        <a class="sign-in-btn" href="#">Sign In</a>
+      </div>
+    </section>
+
+    <!-- Top-Courses Section -->
+    <h1 class="section-title">Top Courses</h1>
+
+    <section class="container top-courses">
+      <div class="card">
+        <div class="price-tag">
+          <p>$0</p>
+        </div>
+        <img
+          class="card-img"
+          src="https://placehold.co/600x400"
+          alt="card-img"
+        />
+        <div class="card-text">
+          <h3>Course Title</h3>
+          <h5>Author</h5>
+          <h5>Level</h5>
+          <h5>Time</h5>
+          <h5>Date</h5>
+        </div>
+      </div>
+      <div class="card">
+        <div class="price-tag">
+          <p>$0</p>
+        </div>
+        <img
+          class="card-img"
+          src="https://placehold.co/600x400"
+          alt="card-img"
+        />
+        <div class="card-text">
+          <h3>Course Title</h3>
+          <h5>Author</h5>
+          <h5>Level</h5>
+          <h5>Time</h5>
+          <h5>Date</h5>
+        </div>
+      </div>
+      <div class="card">
+        <div class="price-tag">
+          <p>$0</p>
+        </div>
+        <img
+          class="card-img"
+          src="https://placehold.co/600x400"
+          alt="card-img"
+        />
+        <div class="card-text">
+          <h3>Course Title</h3>
+          <h5>Author</h5>
+          <h5>Level</h5>
+          <h5>Time</h5>
+          <h5>Date</h5>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <h1 id="About" class="section-title">About</h1>
+
+    <section class="container about">
+      <div class="about-text">
+        <p>
+          Learning always has been Challenging, but fear no more because we are
+          here to help by making it more fun.
+        </p>
+        <p>
+          We aim to give you a smooth and simple User-Interface to get you from
+          <span class="special-word">Zero</span> to
+          <span class="special-word">Hero</span>.
+        </p>
+      </div>
+      <img
+        class="about-img"
+        src="https://placehold.co/600x400"
+        alt="About-img"
+      />
+    </section>
+
+    <!-- Contact Section -->
+    <h1 id="Contact" class="section-title">Contact</h1>
+
+    <form class="container contact" action="">
+      <div>
+        <input type="text" placeholder="Enter Your Email-address..."/>
+        <button class="contact-btn-lg">Send</button>
+      </div>
+      <textarea name="" id="" cols="30" rows="10" placeholder="Enter Your Message Here..."></textarea>
+      <button class="contact-btn-sm">Send</button>
+    </form>
+
+    <!-- Footer -->
+
+    <footer class="container">
+      <p>&copy; 2023 Fady Hany.</p>
+    </footer>
   </body>
 
   <script src="js/all.min.js"></script>
