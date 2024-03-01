@@ -4,16 +4,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EDU Site</title>
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="css/all.min.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
       rel="stylesheet"
     />
+    <!-- General CSS -->
+    <link rel="stylesheet" href="../global/css/all.min.css" />
+    <link rel="stylesheet" href="../global/css/global.css" />
+
+    <!-- Current Page CSS -->
     <link rel="stylesheet" href="css/style.css" />
   </head>
-  <body onscroll="navbarScroll()">
+
+  <body onscroll="NavbarChangeOnScroll()">
     <!-- Navbar -->
     <header id="Header" class="container">
       <nav class="navbar">
@@ -21,7 +28,7 @@
         <i
           class="menu-btn fa-solid fa-bars"
           id="menuBtn"
-          onclick="menuToggler()"
+          onclick="MobileMenuToggler()"
         ></i>
         <ul class="menu hide-menu" id="myMenu">
           <li><a class="active" href="#">Home</a></li>
@@ -126,10 +133,16 @@
 
     <form class="container contact" action="">
       <div>
-        <input type="text" placeholder="Enter Your Email-address..."/>
+        <input type="text" placeholder="Enter Your Email-address..." />
         <button class="contact-btn-lg">Send</button>
       </div>
-      <textarea name="" id="" cols="30" rows="10" placeholder="Enter Your Message Here..."></textarea>
+      <textarea
+        name=""
+        id=""
+        cols="30"
+        rows="10"
+        placeholder="Enter Your Message Here..."
+      ></textarea>
       <button class="contact-btn-sm">Send</button>
     </form>
 
@@ -140,6 +153,6 @@
     </footer>
   </body>
 
-  <script src="js/all.min.js"></script>
+  <script src="../global/js/all.min.js"></script>
   <script src="js/script.js"></script>
 </html>
