@@ -375,12 +375,12 @@ header {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 25px;
 }
 
 .contact div input {
   padding: 25px;
   width: 85%;
+  height: 100%;
   font-size: var(--medium-text-size);
   font-weight: 400;
   color: var(--secondary-color);
@@ -410,7 +410,7 @@ header {
   font-weight: 400;
   color: var(--secondary-color);
   border-radius: 25px;
-  margin-bottom: 25px;
+  margin: 5px 0 25px 0;
 }
 
 .contact .contact-btn-sm{
