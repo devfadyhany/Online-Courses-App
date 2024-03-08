@@ -186,6 +186,12 @@ header {
   display: flex;
   flex-direction: column;
   margin-bottom: 50px;
+  cursor: pointer;
+  transition: var(--transation-duration) ease-in-out;
+}
+
+.card:hover{
+  box-shadow: 0px 0px 10px white;
 }
 
 .price-tag {
