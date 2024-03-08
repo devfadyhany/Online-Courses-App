@@ -180,7 +180,7 @@ header {
 }
 .card {
   position: relative;
-  width: 350px;
+  width: 30%;
   background-color: var(--secondary-color);
   border-radius: 25px;
   display: flex;
@@ -333,8 +333,22 @@ header {
   border-radius: 25px;
 }
 
-.contact div .contact-btn-lg,.contact-btn-sm {
-  padding: 25px 50px;
+.contact div .contact-btn-lg {
+  padding: 25px 0;
+  width: 12%;
+  cursor: pointer;
+  background-color: var(--primary-color);
+  font-size: var(--medium-text-size);
+  font-weight: 600;
+  color: var(--main-text-color);
+  border-radius: 25px;
+  transition: var(--transation-duration) ease-in-out;
+  margin-bottom: 50px;
+}
+
+.contact .contact-btn-sm {
+  padding: 25px 0;
+  width: 60%;
   cursor: pointer;
   background-color: var(--primary-color);
   font-size: var(--medium-text-size);
