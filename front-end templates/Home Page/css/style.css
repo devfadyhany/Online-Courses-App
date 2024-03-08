@@ -171,8 +171,8 @@ header {
   }
 }
 
-/* Top-Courses Section */
-.top-courses{
+/* Latest-Courses Section */
+.latest-courses{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -226,7 +226,7 @@ header {
 }
 
 @media (max-width: 1332px) {
-  .top-courses {
+  .latest-courses {
     justify-content: space-around;
   }
   .card {
@@ -235,17 +235,19 @@ header {
 }
 
 @media (max-width: 1124px) {
-  .top-courses {
+  .latest-courses {
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
+
   .card {
-    width: 400px;
+    width: 250px;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
+  
   .card {
     width: 100%;
   }
