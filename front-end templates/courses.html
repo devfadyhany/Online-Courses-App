@@ -13,28 +13,33 @@
       rel="stylesheet"
     />
     <!-- General CSS -->
-    <link rel="stylesheet" href="../global/css/all.min.css" />
-    <link rel="stylesheet" href="../global/css/global.css" />
+    <link rel="stylesheet" href="./global/css/all.min.css" />
+    <link rel="stylesheet" href="./global/css/global.css" />
 
     <!-- Current Page CSS -->
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="./Courses Page/css/style.css" />
   </head>
 
   <body onscroll="NavbarChangeOnScroll()">
     <!-- Navbar -->
     <header id="Header" class="container">
       <nav class="navbar">
-        <img class="logo" src="imgs/Logo.png" alt="page_logo" />
+        <img class="logo" src="./Courses Page/imgs/Logo.png" alt="page_logo" />
         <i
           class="menu-btn fa-solid fa-bars"
           id="menuBtn"
           onclick="MobileMenuToggler()"
         ></i>
         <ul class="menu hide-menu" id="myMenu">
-          <li><a href="">Home</a></li>
+          <li><a href="/Home.html">Home</a></li>
           <li><a class="active" href="#">Courses</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
+          <li><a href="/Home.html#About">About</a></li>
+          <li><a href="/Home.html#Contact">Contact</a></li>
+          <!-- Profile -->
+          <!-- <div class="profile">
+            <img src="./Courses Page/imgs/Logo.png" alt="" srcset="">
+            <li><a href="#">Fady Hany</a></li>
+          </div> -->
         </ul>
       </nav>
     </header>
@@ -145,9 +150,9 @@
     <!-- Pagination Section -->
     <section class="container">
       <div class="pagination-section">
-        <a class="btn" href="#"><i class="fa-solid fa-arrow-left"></i></a>
+        <button class="btn" ><i class="fa-solid fa-arrow-left"></i></button>
         <p> Page 1 </p>
-        <a class="btn" href="#"><i class="fa-solid fa-arrow-right"></i></a>
+        <button class="btn"><i class="fa-solid fa-arrow-right"></i></button>
       </div>
     </section>
 
@@ -157,6 +162,6 @@
     </footer>
   </body>
 
-  <script src="../global/js/all.min.js"></script>
-  <script src="js/script.js"></script>
+  <script src="./global/js/all.min.js"></script>
+  <script src="./global/js/script.js"></script>
 </html>
