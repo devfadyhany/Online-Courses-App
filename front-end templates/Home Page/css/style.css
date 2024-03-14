@@ -5,6 +5,8 @@ header {
   left: 0;
   background-color: #0d281850;
   z-index: 10;
+  width: 100%;
+  padding: 0 20%;
 }
 
 .navbar {
@@ -24,7 +26,7 @@ header {
   width: 120px;
 }
 
-.navbar .menu-btn {
+.navbar div .menu-btn {
   display: none;
   font-weight: 400;
   font-size: 32px;
@@ -33,18 +35,18 @@ header {
   transition: var(--transation-duration) ease-in-out;
 }
 
-.navbar .menu {
+.navbar div .menu {
   display: flex;
   justify-content: space-between;
   align-items: center;
   list-style: none;
 }
 
-.navbar .menu li {
+.navbar div .menu li {
   margin-left: 25px;
 }
 
-.navbar .menu li a {
+.navbar div .menu li a {
   font-weight: 400;
   font-size: var(--small-text-size);
   text-decoration: none;
@@ -52,76 +54,91 @@ header {
   transition: var(--transation-duration) ease-in-out;
 }
 
-.navbar .menu li a:hover {
+.navbar div .menu li a:hover {
   color: var(--primary-color);
 }
 
-.navbar .menu li .active {
+.navbar div .menu li .active {
   color: var(--primary-color);
 }
 
-.navbar .profile {
+.navbar div .profile {
   display: flex;
+  flex-direction: row;
   align-items: center;
   margin-left: 50px;
 }
 
-.navbar .profile img {
+.navbar div .profile img {
   background-color: white;
   border-radius: 50%;
   height: 50px;
   width: 50px;
 }
 
-.navbar .profile li {
+.navbar div .profile li {
   margin: 10px;
 }
 
 @media (max-width: 768px) {
-  .navbar .hide-menu {
+  header {
+    padding: 0;
+  }
+
+  .navbar div {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+  }
+
+  .navbar div .hide-menu {
     display: none;
   }
 
-  .navbar .menu-btn {
-    display: block;
+  .navbar .logo {
+    margin: 0 20px;
   }
 
-  .navbar .menu-btn:hover {
+  .navbar div .menu-btn {
+    display: block;
+    margin: 0 20px;
+  }
+
+  .navbar div .menu-btn:hover {
     color: var(--primary-color);
   }
 
-  .navbar .menu {
-    width: 200px;
+  .navbar div .menu {
+    position: fixed;
     height: calc(100% - 68px);
+    width: 200px;
     background-color: var(--secondary-color);
     flex-direction: column;
     justify-content: flex-start;
-    position: fixed;
-    bottom: 0;
-    right: 0;
+    top: 68px;
   }
 
-  .navbar .menu li {
+  .navbar div .menu li {
     width: 100%;
     margin: 0;
   }
 
-  .navbar .menu li a {
+  .navbar div .menu li:not(:last-child){
+    border-bottom: 1px solid var(--primary-color);
+  }
+
+  .navbar div .menu li a {
     display: block;
     width: 100%;
     padding: 20px;
   }
 
-  .navbar .menu li a:hover {
+  .navbar div .menu li a:hover {
     background-color: #0c8a3e;
   }
 
-  .container {
-    padding: 0 25px;
-  }
-
-  .navbar .profile {
-    margin-left: 0px;
+  .navbar div .profile {
+    margin: 5px 0;
   }
 }
 

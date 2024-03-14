@@ -22,10 +22,11 @@
 
   <body onscroll="NavbarChangeOnScroll()">
     <!-- Navbar -->
-    <header id="Header" class="container">
+    <header id="Header">
       <nav class="navbar">
         <img class="logo" src="./Courses Page/imgs/Logo.png" alt="page_logo" />
-        <i
+        <div>
+          <i
           class="menu-btn fa-solid fa-bars"
           id="menuBtn"
           onclick="MobileMenuToggler()"
@@ -36,11 +37,12 @@
           <li><a href="/Home.html#About">About</a></li>
           <li><a href="/Home.html#Contact">Contact</a></li>
           <!-- Profile -->
-          <!-- <div class="profile">
+          <div class="profile">
             <img src="./Courses Page/imgs/Logo.png" alt="" srcset="">
             <li><a href="#">Fady Hany</a></li>
-          </div> -->
+          </div>
         </ul>
+        </div>
       </nav>
     </header>
 
@@ -150,9 +152,9 @@
     <!-- Pagination Section -->
     <section class="container">
       <div class="pagination-section">
-        <button class="btn" ><i class="fa-solid fa-arrow-left"></i></button>
+        <button class="btn" >Previous</button>
         <p> Page 1 </p>
-        <button class="btn"><i class="fa-solid fa-arrow-right"></i></button>
+        <button class="btn">Next</button>
       </div>
     </section>
 

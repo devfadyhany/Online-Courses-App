@@ -7,7 +7,7 @@
 
   --small-text-size: 18px;
   --medium-text-size: 24px;
-  --large-text-size: 72px;
+  --large-text-size: 48px;
   --section-title-size: 42px;
 
   --transation-duration: 0.2s;
@@ -19,6 +19,7 @@
   box-sizing: border-box;
   font-family: "JetBrains Mono", monospace;
   scroll-behavior: smooth;
+  /* direction: rtl; */
 }
 
 body {
@@ -40,14 +41,18 @@ body {
 
 @media (max-width: 1124px) {
   :root {
-    --small-text-size: 16px;
+    --small-text-size: 12px;
     --medium-text-size: 16px;
-    --large-text-size: 45px;
+    --large-text-size: 32px;
   }
 }
 
 @media (max-width: 767px) {
   :root {
     --large-text-size: 24px;
+  }
+
+  .container {
+    padding: 0 25px;
   }
 }
