@@ -2,102 +2,102 @@ const AdminModel = require("../models/AdminModel");
 
 class AdminController {
   static GetAdmins = async (req, res) => {
-    const data = await AdminModel.GetAdmins();
+    try {
+      const data = await AdminModel.GetAdmins();
 
-    if (data.length != 0) {
-      res.status(200).send({ status: 200, data: data });
-    } else {
-      res
+      if (data.length != 0) {
+        return res.status(200).send({ status: 200, data: data });
+      }
+
+      return res
         .status(404)
         .send({ status: 404, message: "No Admins have been found." });
-    }
-  };
-
-  static GetAdminById = async (req, res) => {
-    const id = req.params.id;
-
-    const data = await AdminModel.GetAdminById(id);
-
-    if (data.length != 0) {
-      res.status(200).send({ status: 200, data: data[0] });
-    } else {
-      res
-        .status(404)
-        .send({ status: 404, message: "Couldn't find a Admin with this id." });
-    }
-  };
-
-  static DeleteAdmin = async (req, res) => {
-    const id = req.params.id;
-
-    const result = await AdminModel.DeleteAdmin(id);
-
-    if (result.affectedRows != 0) {
-      res
-        .status(200)
-        .send({ status: 200, message: "Admin Deleted Successfully" });
-    } else {
-      res
-        .status(404)
-        .send({ status: 404, message: "Couldn't find a Admin with this id." });
+    } catch (err) {
+      return res.status(500).send({ status: 500, message: err.message });
     }
   };
 
   static AddAdmin = async (req, res) => {
-    const Admin = {
-      name: req.body.name,
-      email: req.body.email,
-      password: req.body.password,
-      gender: req.body.gender,
-    };
+    try {
+      const admin = req.body;
 
-    const result = await AdminModel.AddAdmin(Admin);
+      const result = await AdminModel.AddAdmin(admin);
 
-    if (result.affectedRows != 0) {
-      res
-        .status(200)
-        .send({ status: 200, message: "Admin has been added successfully" });
-    } else {
-      res.status(400).send({ status: 400, message: "Failed to add Admin" });
+      if (result.affectedRows != 0) {
+        return res
+          .status(200)
+          .send({ status: 200, message: "Admin has been added successfully" });
+      }
+
+      return res
+        .status(400)
+        .send({ status: 400, message: "Failed to add admin" });
+    } catch (err) {
+      return res.status(500).send({ status: 500, message: err.message });
+    }
+  };
+
+  static DeleteAdmin = async (req, res) => {
+    try {
+      const id = req.params.id;
+
+      const result = await AdminModel.DeleteAdmin(id);
+
+      if (result.affectedRows != 0) {
+        return res
+          .status(200)
+          .send({ status: 200, message: "Admin Deleted Successfully" });
+      }
+      return res
+        .status(404)
+        .send({ status: 404, message: "Couldn't find a Admin with this id." });
+    } catch (err) {
+      return res.status(500).send({ status: 500, message: err.message });
     }
   };
 
   static EditAdmin = async (req, res) => {
-    const id = req.params.id;
+    try {
+      const id = req.params.id;
+      const Admin = req.body;
 
-    const Admin = {
-      name: req.body.name,
-      email: req.body.email,
-      password: req.body.password,
-      gender: req.body.gender,
-    };
+      const result = await AdminModel.EditAdmin(id, Admin);
 
-    const result = await AdminModel.EditAdmin(id, Admin);
+      if (result.affectedRows != 0) {
+        return res
+          .status(200)
+          .send({ status: 200, message: "Admin has been edited successfully" });
+      }
 
-    if (result.affectedRows != 0) {
-      res
-        .status(200)
-        .send({ status: 200, message: "Admin has been edited successfully" });
-    } else {
-      res.status(400).send({ status: 400, message: "Failed to edit Admin" });
+      return res
+        .status(400)
+        .send({ status: 400, message: "Failed to edit Admin" });
+    } catch (err) {
+      return res.status(500).send({ status: 500, message: err.message });
     }
   };
 
   static Login = async (req, res) => {
-    const email = req.body.email;
-    const password = req.body.password;
+    try {
+      const { email, password } = req.body;
 
-    const result = await AdminModel.Login(email, password);
+      const findAdmin = await AdminModel.GetAdmin(email);
 
-    if (result.length != 0) {
-      res.status(200).send({ status: 200, data: data });
-    } else {
-      res
-        .status(404)
-        .send({
-          status: 404,
-          message: "Failed to login: Email or password is wrong, please try again !",
-        });
+      if (findAdmin[0]) {
+        if (password === findAdmin[0].password) {
+          return res
+            .status(200)
+            .send({ status: 200, message: "Admin Logged in successfully!" });
+        }
+      }
+
+      return res.status(404).send({
+        status: 404,
+        message:
+          "Failed to login: Email or password is wrong, please try again !",
+      });
+    } catch (err) {
+      return res.status(500).send({ status: 500, message: err.message });
     }
   };
 }

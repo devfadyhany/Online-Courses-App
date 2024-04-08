@@ -1,10 +1,4 @@
-const {
-  Delete,
-  Add,
-  Edit,
-  executeQuery,
-  GetById,
-} = require("../core/Model");
+const Model = require("../core/Model");
 
 const table = "comment";
 
@@ -15,14 +9,14 @@ const table = "comment";
 //   message,
 // };
 
-class AdminModel {
+class AdminModel extends Model{
   static GetComments = async (course_id, video_title) => {
     const query = `SELECT * FROM ${table} WHERE course_id = ? AND video_title = ?`;
     return await executeQuery(query, [course_id, video_title]);
   };
 
   static GetCommentById = async (id) => {
-    return await GetById(table, id);
+    return await GetSingle(table, "id", id);
   };
 
   static DeleteComment = async (id) => {

@@ -1,4 +1,4 @@
-const { GetAll, GetById, Delete, Add, Edit, executeQuery } = require("../core/Model");
+const Model = require("../core/Model");
 
 const table = "user";
 
@@ -12,13 +12,13 @@ const table = "user";
 //   isInstructor,
 // };
 
-class UserModel {
+class UserModel extends Model{
   static GetUsers = async () => {
     return await GetAll(table);
   };
 
-  static GetUserById = async (id) => {
-    return await GetById(table, id);
+  static GetUser = async (email) => {
+    return await GetSingle(table, "email", email);
   };
 
   static DeleteUser = async (id) => {
@@ -32,10 +32,6 @@ class UserModel {
   static EditUser = async (id, user) => {
     return await Edit(table, id, user);
   };
-
-  static Login = async (email, password) => {
-    return await executeQuery(`select * from ${table} where email = ? and password = ?`, [email, password]);
-  }
 }
 
 module.exports = UserModel;

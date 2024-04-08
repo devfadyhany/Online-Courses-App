@@ -1,4 +1,4 @@
-const { GetAll, GetById, Delete, Add, Edit } = require("../core/Model");
+const Model = require("../core/Model");
 
 const table = "course";
 
@@ -13,13 +13,13 @@ const table = "course";
 // user_id,
 // };
 
-class CourseModel {
+class CourseModel extends Model {
   static GetCourses = async () => {
     return await GetAll(table);
   };
 
-  static GetCourseById = async (id) => {
-    return await GetById(table, id);
+  static GetCourse = async (id) => {
+    return await GetSingle(table, "id", id);
   };
 
   static DeleteCourse = async (id) => {

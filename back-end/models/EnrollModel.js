@@ -1,4 +1,4 @@
-const { executeQuery, GetAll } = require("../core/Model");
+const Model = require("../core/Model");
 
 const table = "enroll";
 
@@ -8,15 +8,13 @@ const table = "enroll";
 // enrollmentDate,
 // };
 
-class EnrollModel {
+class EnrollModel extends Model{
   static GetEnrolls = async () => {
     return await GetAll(table);
   };
 
   static GetUserEnrolls = async (user_id) => {
-    return await executeQuery(`select * from ${table} where user_id = ?`, [
-      user_id,
-    ]);
+    return await GetSingle(table, "user_id", user_id);
   };
 
   static DeleteEnroll = async (user_id, course_id) => {

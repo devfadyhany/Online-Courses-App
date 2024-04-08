@@ -1,4 +1,4 @@
-const { GetAll, GetById, Delete, Add, Edit } = require("../core/Model");
+const Model = require("../core/Model");
 
 const table = "admin";
 
@@ -10,13 +10,13 @@ const table = "admin";
 //   gender,
 // };
 
-class AdminModel {
+class AdminModel extends Model {
   static GetAdmins = async () => {
     return await GetAll(table);
   };
 
-  static GetAdminById = async (id) => {
-    return await GetById(table, id);
+  static GetAdmin = async (email) => {
+    return await GetSingle(table, "email", email);
   };
 
   static DeleteAdmin = async (id) => {
@@ -30,10 +30,6 @@ class AdminModel {
   static EditAdmin = async (id, admin) => {
     return await Edit(table, id, admin);
   };
-
-  static Login = async (email, password) => {
-    return await executeQuery(`select * from ${table} where email = ? and password = ?`, [email, password]);
-  }
 }
 
 module.exports = AdminModel;
