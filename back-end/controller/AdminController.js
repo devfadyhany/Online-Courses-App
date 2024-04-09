@@ -21,6 +21,8 @@ class AdminController {
     try {
       const admin = req.body;
 
+      admin.password = await bcrypt.hash(admin.password, 10);
+
       const result = await AdminModel.AddAdmin(admin);
 
       if (result.affectedRows != 0) {
@@ -84,10 +86,26 @@ class AdminController {
       const findAdmin = await AdminModel.GetAdmin(email);
 
       if (findAdmin[0]) {
-        if (password === findAdmin[0].password) {
-          return res
-            .status(200)
-            .send({ status: 200, message: "Admin Logged in successfully!" });
+        const passwordMatch = await bcrypt.compare(
+          password,
+          findAdmin[0].password
+        );
+
+        if (passwordMatch) {
+          delete findAdmin[0].password;
+
+          const token = jwt.sign(findAdmin[0], process.env.API_KEY, {
+            expiresIn: "1h",
+          });
+
+          res.cookie("token", token, {
+            httpOnly: true,
+          });
+
+          return res.status(200).send({
+            status: 200,
+            message: "Logged in successfully!",
+          });
         }
       }
 

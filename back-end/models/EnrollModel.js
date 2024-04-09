@@ -1,4 +1,11 @@
-const Model = require("../core/Model");
+const {
+  executeQuery,
+  GetAll,
+  GetSingle,
+  Delete,
+  Add,
+  Edit,
+} = require("../core/Model");
 
 const table = "enroll";
 
@@ -8,7 +15,7 @@ const table = "enroll";
 // enrollmentDate,
 // };
 
-class EnrollModel extends Model{
+class EnrollModel {
   static GetEnrolls = async () => {
     return await GetAll(table);
   };

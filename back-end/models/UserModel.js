@@ -1,4 +1,4 @@
-const Model = require("../core/Model");
+const { GetAll, GetSingle, Delete, Add, Edit } = require("../core/Model");
 
 const table = "user";
 
@@ -12,7 +12,7 @@ const table = "user";
 //   isInstructor,
 // };
 
-class UserModel extends Model{
+class UserModel {
   static GetUsers = async () => {
     return await GetAll(table);
   };

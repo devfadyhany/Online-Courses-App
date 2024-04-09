@@ -1,4 +1,11 @@
-const Model = require("../core/Model");
+const {
+  executeQuery,
+  GetAll,
+  GetSingle,
+  Delete,
+  Add,
+  Edit,
+} = require("../core/Model");
 
 const table = "admin";
 
@@ -10,7 +17,7 @@ const table = "admin";
 //   gender,
 // };
 
-class AdminModel extends Model {
+class AdminModel {
   static GetAdmins = async () => {
     return await GetAll(table);
   };

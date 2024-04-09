@@ -1,4 +1,11 @@
-const Model = require("../core/Model");
+const {
+  executeQuery,
+  GetAll,
+  GetSingle,
+  Delete,
+  Add,
+  Edit,
+} = require("../core/Model");
 
 const table = "comment";
 
@@ -9,7 +16,7 @@ const table = "comment";
 //   message,
 // };
 
-class AdminModel extends Model{
+class AdminModel {
   static GetComments = async (course_id, video_title) => {
     const query = `SELECT * FROM ${table} WHERE course_id = ? AND video_title = ?`;
     return await executeQuery(query, [course_id, video_title]);

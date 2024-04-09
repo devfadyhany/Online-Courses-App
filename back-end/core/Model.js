@@ -1,6 +1,5 @@
 const db = require("../config/database");
 
-class Model{
   executeQuery = async (sql, params) => {
     const response = await db.promise().query(sql, params);
   
@@ -41,7 +40,6 @@ class Model{
     const params = [...Object.values(MappedObject), id];
     return await executeQuery(query, params);
   };
-};
 
 
-module.exports = Model;
+module.exports = { executeQuery, GetAll, GetSingle, Delete, Add, Edit};
