@@ -1,11 +1,4 @@
-const {
-  executeQuery,
-  GetAll,
-  GetSingle,
-  Delete,
-  Add,
-  Edit,
-} = require("../core/Model");
+import { executeQuery, GetAll, GetSingle } from "../core/Model.js";
 
 const table = "enroll";
 
@@ -15,28 +8,24 @@ const table = "enroll";
 // enrollmentDate,
 // };
 
-class EnrollModel {
-  static GetEnrolls = async () => {
-    return await GetAll(table);
-  };
+export const GetAllEnrolls = async () => {
+  return await GetAll(table);
+};
 
-  static GetUserEnrolls = async (user_id) => {
-    return await GetSingle(table, "user_id", user_id);
-  };
+export const GetEnrollsByUserId = async (user_id) => {
+  return await GetSingle(table, "user_id", user_id);
+};
 
-  static DeleteEnroll = async (user_id, course_id) => {
-    return await executeQuery(
-      `delete from ${table} where user_id = ? and course_id = ?`,
-      [user_id, course_id]
-    );
-  };
+export const Expel = async (user_id, course_id) => {
+  return await executeQuery(
+    `delete from ${table} where user_id = ? and course_id = ?`,
+    [user_id, course_id]
+  );
+};
 
-  static EnrollUser = async (user_id, course_id) => {
-    return await executeQuery(
-      `insert into ${table} ('user_id', 'course_id', 'enrollmentDate') values (?,?,CURDATE())`,
-      [user_id, course_id]
-    );
-  };
-}
-
-module.exports = EnrollModel;
+export const Enroll = async (user_id, course_id) => {
+  return await executeQuery(
+    `insert into ${table} ('user_id', 'course_id', 'enrollmentDate') values (?,?,CURDATE())`,
+    [user_id, course_id]
+  );
+};

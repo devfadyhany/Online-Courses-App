@@ -1,5 +1,7 @@
-require("dotenv").config({ path: `${process.cwd()}/.env` });
-const mysql = require("mysql2");
+import dotenv from "dotenv";
+dotenv.config();
+
+import mysql from "mysql2";
 
 const connection = {
   user: process.env.DB_USERNAME,
@@ -17,4 +19,4 @@ db.getConnection((err) => {
   }
 });
 
-module.exports = db;
+export default db;

@@ -1,12 +1,15 @@
-const enrollRouter = require("express").Router();
-const EnrollController = require("../controller/EnrollController");
+import express from "express";
+import {
+  GetEnrolls,
+  EnrollUser,
+  DeleteEnroll,
+  GetUserEnrolls,
+} from "../controller/EnrollController.js";
 
-enrollRouter
-  .route("/")
-  .get(EnrollController.GetEnrolls)
-  .post(EnrollController.EnrollUser)
-  .delete(EnrollController.DeleteEnroll);
+const enrollRouter = express.Router();
 
-enrollRouter.get("/:user_id", EnrollController.GetUserEnrolls);
+enrollRouter.route("/").get(GetEnrolls).post(EnrollUser).delete(DeleteEnroll);
 
-module.exports = enrollRouter;
+enrollRouter.get("/:user_id", GetUserEnrolls);
+
+export default enrollRouter;

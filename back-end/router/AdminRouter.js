@@ -1,16 +1,18 @@
-const adminRouter = require("express").Router();
-const AdminController = require("../controller/AdminController");
+import express from "express";
+import {
+  GetAdmins,
+  AddAdmin,
+  DeleteAdmin,
+  EditAdmin,
+  Login,
+} from "../controller/AdminController.js";
 
-adminRouter
-  .route("/")
-  .get(AdminController.GetAdmins)
-  .post(AdminController.AddAdmin);
-  
-adminRouter
-  .route("/:id")
-  .delete(AdminController.DeleteAdmin)
-  .put(AdminController.EditAdmin);
+const adminRouter = express.Router();
 
-adminRouter.get("/login", AdminController.Login);
+adminRouter.route("/").get(GetAdmins).post(AddAdmin);
 
-module.exports = adminRouter;
+adminRouter.route("/:id").delete(DeleteAdmin).put(EditAdmin);
+
+adminRouter.get("/login", Login);
+
+export default adminRouter;

@@ -1,4 +1,4 @@
-const { GetAll, GetSingle, Delete, Add, Edit } = require("../core/Model");
+import { GetAll, GetSingle, Delete, Add, Edit } from "../core/Model.js";
 
 const table = "user";
 
@@ -12,26 +12,22 @@ const table = "user";
 //   isInstructor,
 // };
 
-class UserModel {
-  static GetUsers = async () => {
-    return await GetAll(table);
-  };
+export const GetAllUsers = async () => {
+  return await GetAll(table);
+};
 
-  static GetUser = async (email) => {
-    return await GetSingle(table, "email", email);
-  };
+export const GetUserByEmail = async (email) => {
+  return await GetSingle(table, "email", email);
+};
 
-  static DeleteUser = async (id) => {
-    return await Delete(table, id);
-  };
+export const DeleteUserById = async (id) => {
+  return await Delete(table, id);
+};
 
-  static AddUser = async (user) => {
-    return await Add(table, user);
-  };
+export const AddNewUser = async (user) => {
+  return await Add(table, user);
+};
 
-  static EditUser = async (id, user) => {
-    return await Edit(table, id, user);
-  };
-}
-
-module.exports = UserModel;
+export const EditUserById = async (id, user) => {
+  return await Edit(table, id, user);
+};

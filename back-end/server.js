@@ -1,8 +1,8 @@
-require("dotenv").config({ path: `${process.cwd()}/.env` });
+import dotenv from "dotenv";
+import express from "express";
+import mainRouter from "./core/Router.js";
 
-const express = require("express");
-const mainRouter = require("./core/Router");
-
+dotenv.config();
 const app = express();
 
 app.use(express.json());

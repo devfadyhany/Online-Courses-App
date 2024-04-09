@@ -1,11 +1,4 @@
-const {
-  executeQuery,
-  GetAll,
-  GetSingle,
-  Delete,
-  Add,
-  Edit,
-} = require("../core/Model");
+import { GetAll, GetSingle, Delete, Add, Edit } from "../core/Model.js";
 
 const table = "course";
 
@@ -20,26 +13,22 @@ const table = "course";
 // user_id,
 // };
 
-class CourseModel {
-  static GetCourses = async () => {
-    return await GetAll(table);
-  };
+export const GetAllCourses = async () => {
+  return await GetAll(table);
+};
 
-  static GetCourse = async (id) => {
-    return await GetSingle(table, "id", id);
-  };
+export const GetCourseById = async (id) => {
+  return await GetSingle(table, "id", id);
+};
 
-  static DeleteCourse = async (id) => {
-    return await Delete(table, id);
-  };
+export const DeleteCourseById = async (id) => {
+  return await Delete(table, id);
+};
 
-  static AddCourse = async (course) => {
-    return await Add(table, course);
-  };
+export const AddNewCourse = async (course) => {
+  return await Add(table, course);
+};
 
-  static EditCourse = async (id, course) => {
-    return await Edit(table, id, course);
-  };
-}
-
-module.exports = CourseModel;
+export const EditCourseById = async (id, course) => {
+  return await Edit(table, id, course);
+};

@@ -1,11 +1,15 @@
-const courseRouter = require("express").Router();
-const CourseController = require("../controller/CourseController");
+import express from "express";
+import {
+  GetCourses,
+  AddCourse,
+  GetCourse,
+  DeleteCourse,
+  EditCourse,
+} from "../controller/CourseController.js";
 
-courseRouter.route("/").get(CourseController.GetCourses).post(CourseController.AddCourse);
-courseRouter
-  .route("/:id")
-  .get(CourseController.GetCourseById)
-  .delete(CourseController.DeleteCourse)
-  .put(CourseController.EditCourse);
+const courseRouter = express.Router();
 
-module.exports = courseRouter;
+courseRouter.route("/").get(GetCourses).post(AddCourse);
+courseRouter.route("/:id").get(GetCourse).delete(DeleteCourse).put(EditCourse);
+
+export default courseRouter;

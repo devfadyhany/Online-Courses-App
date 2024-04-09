@@ -1,11 +1,4 @@
-const {
-  executeQuery,
-  GetAll,
-  GetSingle,
-  Delete,
-  Add,
-  Edit,
-} = require("../core/Model");
+import { GetAll, GetSingle, Delete, Add, Edit } from "../core/Model.js";
 
 const table = "admin";
 
@@ -17,26 +10,22 @@ const table = "admin";
 //   gender,
 // };
 
-class AdminModel {
-  static GetAdmins = async () => {
-    return await GetAll(table);
-  };
+export const GetAllAdmins = async () => {
+  return await GetAll(table);
+};
 
-  static GetAdmin = async (email) => {
-    return await GetSingle(table, "email", email);
-  };
+export const GetAdminByEmail = async (email) => {
+  return await GetSingle(table, "email", email);
+};
 
-  static DeleteAdmin = async (id) => {
-    return await Delete(table, id);
-  };
+export const DeleteAdminById = async (id) => {
+  return await Delete(table, id);
+};
 
-  static AddAdmin = async (admin) => {
-    return await Add(table, admin);
-  };
+export const AddNewAdmin = async (admin) => {
+  return await Add(table, admin);
+};
 
-  static EditAdmin = async (id, admin) => {
-    return await Edit(table, id, admin);
-  };
-}
-
-module.exports = AdminModel;
+export const EditAdminById = async (id, admin) => {
+  return await Edit(table, id, admin);
+};

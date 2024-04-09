@@ -1,12 +1,12 @@
-const mainRouter = require("express").Router();
+import express from "express";
+import userRouter from "../router/UserRouter.js";
+import courseRouter from "../router/CourseRouter.js";
+import adminRouter from "../router/AdminRouter.js";
+import commentRouter from "../router/CommentRouter.js";
+import enrollRouter from "../router/EnrollRouter.js";
+// import videoRouter from "../router/VideoRouter";
 
-const userRouter = require("../router/UserRouter");
-const courseRouter = require("../router/CourseRouter");
-const adminRouter = require("../router/AdminRouter");
-const commentRouter = require("../router/CommentRouter");
-const enrollRouter = require("../router/EnrollRouter");
-// const videoRouter = require("../router/VideoRouter");
-
+const mainRouter = express.Router();
 
 mainRouter.use("/user", userRouter);
 mainRouter.use("/course", courseRouter);
@@ -15,5 +15,4 @@ mainRouter.use("/comment", commentRouter);
 mainRouter.use("/enroll", enrollRouter);
 // mainRouter.use("/video", videoRouter);
 
-
-module.exports = mainRouter;
+export default mainRouter;
