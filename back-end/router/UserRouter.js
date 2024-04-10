@@ -6,6 +6,7 @@ import {
   Login,
   Register,
 } from "../controller/UserController.js";
+import { profileImageUpload } from "../controller/Uploader.js";
 
 const userRouter = express.Router();
 
@@ -14,6 +15,6 @@ userRouter.get("/", GetUsers);
 userRouter.route("/:id").delete(DeleteUser).put(EditUser);
 
 userRouter.post("/login", Login);
-userRouter.post("/register", Register);
+userRouter.post("/register", profileImageUpload.single("image"), Register);
 
 export default userRouter;

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EDU Site</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- General CSS -->
+    <link rel="stylesheet" href="./global/css/all.min.css" />
+    <link rel="stylesheet" href="./global/css/global.css" />
+
+    <!-- Current Page CSS -->
+    <link rel="stylesheet" href="./Register Page/style.css" />
+  </head>
+
+  <body id="body">
+    <div class="container">
+      <form
+        action="http://192.168.1.103:8000/api/v1/user/register"
+        method="post"
+        enctype="multipart/form-data"
+        class="RegisterForm"
+      >
+        <h1>Create New Account</h1>
+
+        <!-- Name -->
+        <div class="TextGroup">
+          <label for="name">Name</label>
+          <input
+            name="name"
+            id="name"
+            type="text"
+            placeholder="Enter your Name..."
+          />
+        </div>
+
+        <!-- Email -->
+        <div class="TextGroup">
+          <label for="email">Email-address</label>
+          <input
+            name="email"
+            id="email"
+            type="email"
+            placeholder="Enter your Email-address..."
+          />
+        </div>
+
+        <!-- Password -->
+        <div class="TextGroup">
+          <label for="password">Password</label>
+          <input
+            name="password"
+            id="password"
+            type="password"
+            placeholder="Enter your Password..."
+          />
+        </div>
+
+        <!-- Gender -->
+        <div class="RadioGroup">
+          <div>
+            <input type="radio" name="gender" id="male" value="M"/>
+            <label for="male">Male</label>
+          </div>
+          <div>
+            <input type="radio" name="gender" id="female" value="F"/>
+            <label for="female">Female</label>
+          </div>
+        </div>
+
+        <!-- Instructor -->
+        <div class="CheckboxGroup">
+          <label for="isInstructor">Are you an Instructor?</label>
+          <input name="isInstructor" type="checkbox" id="isInstructor" value="Y"/>
+        </div>
+
+        <!-- Image -->
+        <div class="FileGroup">
+          <label for="image">Upload your Profile Image:</label>
+          <input type="file" id="image" name="image" />
+        </div>
+
+        <!-- Submit -->
+        <input class="SubmitBtn" type="submit" value="Register" />
+      </form>
+    </div>
+  </body>
+
+  <script src="./global/js/all.min.js"></script>
+</html>
