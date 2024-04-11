@@ -133,9 +133,17 @@ export const Register = async (req, res) => {
     const result = AddNewUser(user);
 
     if (result.affectedRows !== 0) {
-      return res
-        .status(200)
-        .send({ status: 200, message: "User has registerd successfully!" });
+      delete user.password;
+
+      const token = jwt.sign(user, process.env.API_KEY, {
+        expiresIn: "1d",
+      });
+
+      res.cookie("token", token, {
+        httpOnly: true,
+      });
+
+      return res.redirect(200, 'http://127.0.0.1:5500/front-end%20templates/Home.html')
     }
 
     return res.send(400).send({ status: 400, message: "Failed to register!" });

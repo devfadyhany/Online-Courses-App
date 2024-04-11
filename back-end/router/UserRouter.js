@@ -12,6 +12,8 @@ const userRouter = express.Router();
 
 userRouter.get("/", GetUsers);
 
+userRouter.use("/img", express.static("Images/profile"))
+
 userRouter.route("/:id").delete(DeleteUser).put(EditUser);
 
 userRouter.post("/login", Login);
