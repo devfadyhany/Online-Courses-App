@@ -11,7 +11,7 @@
 
 .RegisterForm {
   width: 60%;
-  padding: 20px 30px;
+  padding: 20px 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -22,6 +22,10 @@
   );
   color: var(--main-text-color);
   border-radius: 25px;
+}
+
+.RegisterForm h1 {
+  margin: 15px;
 }
 
 .RegisterForm .TextGroup {
@@ -89,7 +93,6 @@
 
 .RegisterForm a {
   text-decoration: none;
-  width: 100%;
   margin-bottom: 15px;
   color: white;
   transition: var(--transation-duration);
