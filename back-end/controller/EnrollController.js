@@ -1,9 +1,4 @@
-import {
-  Enroll,
-  Expel,
-  GetAllEnrolls,
-  GetEnrollsByUserId,
-} from "../models/EnrollModel.js";
+import {Enroll, Expel, GetAllEnrolls, GetEnrollsByUserId} from "../models/EnrollModel.js";
 
 export const GetEnrolls = async (req, res) => {
   try {

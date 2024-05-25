@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- General CSS -->
+    <link rel="stylesheet" href="./global/css/all.min.css" />
+    <link rel="stylesheet" href="./global/css/global.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./Video Player/styles.css" />
+  </head>
+  <body>
+    <div class="videoContainer paused hideOverlay" data-volume-level="high">
+      <div class="iconOverlay">
+        <div class="icon">
+          <h5 class="speedO">1.25x</h5>
+          <i class="playO fa-solid fa-play"></i>
+          <i class="pauseO fa-solid fa-pause"></i>
+          <i class="forwardO fa-solid fa-forward"></i>
+          <i class="backwardO fa-solid fa-backward"></i>
+          <h5 class="volumeO">100</h5>
+        </div>
+      </div>
+
+      <!-- <img class="thumbnailImg" /> -->
+      <div class="videoControlsContainer">
+        <div class="timelineContainer">
+          <div class="timeline">
+            <!-- <img class="previewImg" /> -->
+            <div class="thumbIndicator"></div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <button class="playPauseBtn">
+            <i class="playIcon fa-solid fa-play"></i>
+            <i class="pauseIcon fa-solid fa-pause"></i>
+          </button>
+
+          <div class="volumeContainer">
+            <button class="muteBtn">
+              <i class="highVolumeIcon fa-solid fa-volume-high"></i>
+              <i class="lowVolumeIcon fa-solid fa-volume-low"></i>
+              <i class="muteIcon fa-solid fa-volume-xmark"></i>
+            </button>
+            <input
+              class="volumeSlider"
+              type="range"
+              min="0"
+              max="1"
+              step="any"
+              value="1"
+            />
+          </div>
+
+          <div class="durationContainer">
+            <div class="currentTime">0:00</div>
+            /
+            <div class="totalTime"></div>
+          </div>
+
+          <button class="speedBtn wide">1x</button>
+
+          <button class="fullscreenBtn">
+            <i class="fullscreenIcon fa-solid fa-expand"></i>
+            <i class="minimizeIcon fa-solid fa-compress"></i>
+          </button>
+        </div>
+      </div>
+      <video src="Video Player/video.mp4"></video>
+    </div>
+
+    <script src="./Video Player/script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,166 @@
+/* Search Section */
+.searchSection {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 100px;
+  width: 100%;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.searchSection svg {
+  font-size: var(--medium-text-size);
+  padding: 15px;
+}
+
+.searchSection input {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  color: var(--secondary-color);
+  background-color: transparent;
+  font-size: var(--small-text-size);
+}
+
+.searchSection input:focus{
+  outline: none;
+}
+
+/* Filters Section */
+.filtersSection {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.filtersSection select {
+  margin: 15px 0;
+  padding: 10px;
+  height: 50px;
+  border-radius: 10px;
+  color: var(--secondary-color);
+  font-size: var(--small-text-size);
+}
+
+@media (max-width: 768px) {
+  .filtersSection {
+    flex-direction: column;
+  }
+
+  .filtersSection select {
+    margin: 15px 0 0 0;
+    width: 100%;
+  }
+}
+
+/* Courses Section */
+.coursesSection {
+  padding: 50px 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card {
+  position: relative;
+  width: 100%;
+  background-color: var(--secondary-color);
+  border-radius: 25px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 50px;
+  padding: 15px;
+  cursor: pointer;
+  transition: var(--transation-duration) ease-in-out;
+}
+
+.card:hover {
+  box-shadow: 0px 0px 10px white;
+}
+
+.priceTag {
+  padding: 10px 25px;
+}
+
+.priceTag p {
+  font-size: var(--medium-text-size);
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.cardImg {
+  width: 40%;
+  border-radius: 10px;
+}
+
+.cardText {
+  width: 50%;
+  padding: 10px 20px 30px 20px;
+  margin-bottom: 20px;
+}
+
+.cardText h3 {
+  font-size: var(--medium-text-size);
+  color: var(--main-text-color);
+  margin-bottom: 25px;
+}
+
+.cardText h5 {
+  font-size: calc(var(--small-text-size) - 2px);
+  font-weight: 300;
+  color: var(--main-text-color);
+}
+
+@media (max-width: 1024px) {
+  .card {
+    padding: 5px 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .card {
+    padding: 15px;
+  }
+
+  .cardText {
+    width: 100%;
+  }
+}
+
+@media (max-width: 540px) {
+  .coursesSection {
+    justify-content: center;
+    align-items: center;
+  }
+
+  .card {
+    width: 100%;
+    padding: 0;
+    flex-direction: column;
+  }
+
+  .cardImg {
+    width: 100%;
+    border-radius: 25px 25px 0 0;
+  }
+
+  .priceTag {
+    position: absolute;
+    bottom: 92%;
+    right: 15px;
+    padding: 3%;
+    border-radius: 50px;
+    background-color: var(--primary-color);
+  }
+
+  .priceTag p {
+    color: var(--main-text-color);
+    font-size: calc(var(--medium-text-size) + 10px);
+  }
+}

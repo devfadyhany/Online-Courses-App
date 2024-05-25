@@ -1,13 +1,4 @@
-import dotenv from "dotenv";
-dotenv.config();
-
-import {
-  AddNewUser,
-  DeleteUserById,
-  EditUserById,
-  GetAllUsers,
-  GetUserByEmail,
-} from "../models/UserModel.js";
+import {AddNewUser, DeleteUserById, EditUserById, GetAllUsers, GetUserByEmail} from "../models/UserModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { file_src } from "./Uploader.js";

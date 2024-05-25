@@ -1,10 +1,4 @@
-import {
-  AddNewCourse,
-  DeleteCourseById,
-  EditCourseById,
-  GetAllCourses,
-  GetCourseById,
-} from "../models/CourseModel.js";
+import {AddNewCourse, DeleteCourseById, EditCourseById, GetAllCourses, GetCourseById} from "../models/CourseModel.js";
 
 export const GetCourses = async (req, res) => {
   try {

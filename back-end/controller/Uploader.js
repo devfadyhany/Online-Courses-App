@@ -1,7 +1,6 @@
 import multer from "multer";
 import path from "path";
 
-export let file_src;
 const profileImagesStorage = multer.diskStorage({
   destination: (req, file, callback) => {
     callback(null, "Images/profile");

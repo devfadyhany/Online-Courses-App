@@ -1,0 +1,305 @@
+.videoContainer {
+  position: relative;
+  width: 90%;
+  max-width: 1000px;
+  display: flex;
+  justify-content: center;
+  margin-inline: auto;
+}
+
+.videoContainer.fullScreen {
+  max-width: initial;
+  width: 100%;
+  max-height: 100vh;
+}
+
+video {
+  width: 100%;
+}
+
+.videoControlsContainer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: white;
+  z-index: 100;
+  opacity: 0;
+  transition: opacity ease-in-out var(--transation-duration);
+}
+
+.videoControlsContainer::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent);
+  width: 100%;
+  aspect-ratio: 6/1;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.videoContainer:hover .videoControlsContainer,
+.videoContainer:focus-within .videoControlsContainer,
+.videoContainer.paused .videoControlsContainer {
+  opacity: 1;
+}
+
+.videoControlsContainer .controls {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.25rem;
+  align-items: center;
+}
+
+.videoControlsContainer .controls button {
+  background: none;
+  border: none;
+  color: inherit;
+  padding: 0;
+  height: 50px;
+  width: 50px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  opacity: 0.85;
+  transition: all ease-in-out var(--transation-duration);
+}
+
+.videoControlsContainer .controls button:hover {
+  opacity: 1;
+  color: var(--primary-color);
+}
+
+.videoContainer.paused .pauseIcon {
+  display: none;
+}
+
+.videoContainer:not(.paused) .playIcon {
+  display: none;
+}
+
+.videoContainer.fullScreen .fullscreenIcon {
+  display: none;
+}
+
+.videoContainer:not(.fullScreen) .minimizeIcon {
+  display: none;
+}
+
+.highVolumeIcon,
+.lowVolumeIcon,
+.muteIcon {
+  display: none;
+}
+
+.videoContainer[data-volume-level="high"] .highVolumeIcon {
+  display: block;
+}
+
+.videoContainer[data-volume-level="low"] .lowVolumeIcon {
+  display: block;
+}
+
+.videoContainer[data-volume-level="muted"] .muteIcon {
+  display: block;
+}
+
+.volumeContainer {
+  display: flex;
+  align-items: center;
+}
+
+.volumeSlider {
+  width: 0;
+  transform-origin: left;
+  transform: scaleX(0);
+  accent-color: var(--primary-color);
+  transition: all ease-in-out var(--transation-duration);
+}
+
+.volumeContainer:hover .volumeSlider,
+.volumeSlider:focus-within {
+  width: 100px;
+  transform: scaleX(1);
+}
+
+.durationContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-grow: 1;
+}
+
+.videoControlsContainer .controls button.wide {
+  width: 75px;
+  font-weight: 900;
+}
+
+.timelineContainer {
+  height: 7px;
+  margin-inline: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.timelineContainer:hover .timeline {
+  height: 100%;
+}
+
+.timeline {
+  background-color: rgba(100, 100, 100, 0.5);
+  height: 3px;
+  width: 100%;
+  position: relative;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: calc(100% - var(--preview-position) * 100%);
+  background-color: rgb(150, 150, 150);
+  display: none;
+}
+
+.timeline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: calc(100% - var(--progress-position) * 100%);
+  background-color: var(--primary-color);
+}
+
+.timeline .thumbIndicator {
+  --scale: 0;
+  position: absolute;
+  transform: translateX(-50%) scale(var(--scale));
+  height: 200%;
+  top: -50%;
+  left: calc(var(--progress-position) * 100%);
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  transition: all ease-in-out var(--transation-duration);
+  aspect-ratio: 1/1;
+}
+
+.timeline .previewImg {
+  position: absolute;
+  height: 80px;
+  aspect-ratio: 16/9;
+  top: -1rem;
+  transform: translate(-50%, -100%);
+  left: calc(var(--preview-position) * 100%);
+  border-radius: 0.25rem;
+  border: 2px solid white;
+  display: none;
+}
+
+.thumbnailImg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+
+.videoContainer.scrubbing .thumbnailImg {
+  display: block;
+}
+
+.videoContainer.scrubbing .previewImg,
+.timelineContainer:hover .previewImg {
+  display: block;
+}
+
+.videoContainer.scrubbing .timeline,
+.timelineContainer:hover .timeline::before {
+  display: block;
+}
+
+.videoContainer.scrubbing .thumbIndicator,
+.timelineContainer:hover .thumbIndicator {
+  --scale: 1;
+}
+
+.videoContainer.scrubbing .timeline,
+.timelineContainer:hover .timeline {
+  height: 100%;
+}
+
+.iconOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.iconOverlay .icon {
+  text-align: center;
+  color: var(--primary-color);
+  font-size: 2rem;
+  font-weight: 900;
+  background-color: rgba(100, 100, 100, 0.5);
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  /* overflow: hidden; */
+  position: relative;
+}
+
+.playO,
+.pauseO,
+.forwardO,
+.backwardO,
+.volumeO,
+.speedO{
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 30%;
+  text-align: center;
+}
+
+.icon.play .playO {
+  display: block;
+}
+
+.icon.pause .pauseO {
+  display: block;
+}
+
+.icon.forward .forwardO {
+  display: block;
+}
+
+.icon.backward .backwardO {
+  display: block;
+}
+
+.icon.volume .volumeO {
+  display: block;
+}
+
+.icon.speed .speedO {
+  display: block;
+}
+
+.videoContainer.hideOverlay .iconOverlay {
+  display: none;
+}

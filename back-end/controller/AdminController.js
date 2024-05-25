@@ -1,13 +1,4 @@
-import dotenv from "dotenv";
-dotenv.config();
-
-import {
-  AddNewAdmin,
-  DeleteAdminById,
-  EditAdminById,
-  GetAdminByEmail,
-  GetAllAdmins,
-} from "../models/AdminModel.js";
+import {AddNewAdmin, DeleteAdminById, EditAdminById, GetAdminByEmail, GetAllAdmins} from "../models/AdminModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 

@@ -40,13 +40,21 @@ header {
   justify-content: space-between;
   align-items: center;
   list-style: none;
+  margin-left: 50px;
 }
 
-.navbar div .menu li {
+.navbar .login-register{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+}
+
+.navbar div li {
   margin-left: 25px;
 }
 
-.navbar div .menu li a {
+.navbar div li a {
   font-weight: 400;
   font-size: var(--small-text-size);
   text-decoration: none;
@@ -54,15 +62,15 @@ header {
   transition: var(--transation-duration) ease-in-out;
 }
 
-.navbar div .menu li a:hover {
+.navbar div li a:hover {
   color: var(--primary-color);
 }
 
-.navbar div .menu li .active {
+.navbar div li .active {
   color: var(--primary-color);
 }
 
-.navbar div .profile {
+/* .navbar div .profile {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -78,7 +86,7 @@ header {
 
 .navbar div .profile li {
   margin: 10px;
-}
+} */
 
 @media (max-width: 768px) {
   header {
@@ -139,6 +147,10 @@ header {
 
   .navbar div .profile {
     margin: 5px 0;
+  }
+
+  .navbar .login-register{
+    display: none;
   }
 }
 
@@ -214,7 +226,7 @@ header {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 .card {
   position: relative;
@@ -236,7 +248,7 @@ header {
   position: absolute;
   bottom: 92%;
   right: 15px;
-  padding: 20px;
+  padding: 12px;
   border-radius: 50px;
   background-color: var(--primary-color);
 }
