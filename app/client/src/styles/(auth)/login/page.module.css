@@ -1,0 +1,77 @@
+.container {
+  background: url("../../../../public/hero-background.jpg");
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.LoginForm {
+  width: 50%;
+  padding: 20px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(#000000f1, #001d02f1);
+  color: var(--main-text-color);
+  border-radius: 25px;
+}
+
+.LoginForm h1 {
+  margin: 15px 0;
+  font-size: var(--medium-text-size);
+}
+
+.LoginForm .TextGroup {
+  width: 100%;
+}
+
+.LoginForm .TextGroup input {
+  margin: 15px 0;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+}
+
+.LoginForm a {
+  text-decoration: none;
+  margin: 15px;
+  color: white;
+  transition: var(--transation-duration);
+}
+
+.LoginForm a:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
+.LoginForm .SubmitBtn {
+  padding: 15px;
+  border-radius: 15px;
+  border: 1px solid var(--primary-color);
+  cursor: pointer;
+  background-color: var(--secondary-color);
+  transition: var(--transation-duration);
+  color: var(--main-text-color);
+}
+
+.LoginForm .SubmitBtn:hover {
+  padding: 15px;
+  border-radius: 15px;
+  cursor: pointer;
+  background-color: var(--primary-color);
+}
+
+@media (max-width: 1124px) {
+  .LoginForm {
+    width: 90%;
+  }
+
+  .LoginForm h1 {
+    font-size: var(--large-text-size);
+  }
+}

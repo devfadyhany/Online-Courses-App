@@ -1,6 +1,7 @@
 import Card from "@/components/Card";
 
 import styles from "@/styles/home/page.module.css";
+import Link from "next/link";
 
 export default function Home() {
 
@@ -10,8 +11,8 @@ export default function Home() {
       <h1>A New Way Of Learning</h1>
       <h3>Modern Learning is Here</h3>
       <div>
-        <a className={styles.signUpBtn} href="/register.html">Sign Up</a>
-        <a className={styles.signInBtn} href="/login.html">Sign In</a>
+        <Link className={styles.signUpBtn} href="/register">Register</Link>
+        <Link className={styles.signInBtn} href="/login">Login</Link>
       </div>
     </section>
 
