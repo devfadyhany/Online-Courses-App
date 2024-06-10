@@ -1,9 +1,9 @@
 /* Hero Section */
 .hero {
   height: 100vh;
-  background: url('../../../public/hero-background.jpg');
+  background: url("../../../public/hero-background.jpg");
   background-size: cover;
-  box-shadow: inset 0 0 0 1000px rgba(0,0,0,0.7);
+  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.7);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -65,25 +65,23 @@
 }
 
 /* Latest-Courses Section */
-.latestCourses{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
+.latestCourses {
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  gap: 5%;
 }
 .card {
   position: relative;
-  width: 30%;
   background-color: var(--secondary-color);
   border-radius: 25px;
   display: flex;
   flex-direction: column;
-  margin-bottom: 50px;
   cursor: pointer;
   transition: var(--transation-duration) ease-in-out;
+  height: 450px;
 }
 
-.card:hover{
+.card:hover {
   box-shadow: 0px 0px 10px white;
 }
 
@@ -105,11 +103,11 @@
 .cardImg {
   width: 100%;
   border-radius: 25px 25px 0 0;
+  background-color: white;
 }
 
 .cardText {
   padding: 10px 20px 30px 20px;
-  margin-bottom: 20px;
 }
 
 .cardText h3 {
@@ -124,16 +122,16 @@
   color: var(--main-text-color);
 }
 
+@media (max-width: 1024px) {
+  .latestCourses {
+    grid-template-columns: auto auto;
+  }
+}
+
 @media (max-width: 767px) {
   .latestCourses {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 10%;
-  }
-
-  .card {
-    width: 100%;
+    grid-template-columns: auto;
+    padding: 0 10%;
   }
 }
 
@@ -186,7 +184,7 @@
     display: none;
   }
 
-  .aboutText{
+  .aboutText {
     width: 100%;
     padding: 0 50px;
     text-align: center;
@@ -253,7 +251,8 @@
   margin-bottom: 50px;
 }
 
-.contact div .contactBtnLg:hover,.contactBtnSm:hover {
+.contact div .contactBtnLg:hover,
+.contactBtnSm:hover {
   background-color: #0f9545;
 }
 
@@ -268,7 +267,7 @@
   outline: none;
 }
 
-.contact .contactBtnSm{
+.contact .contactBtnSm {
   display: none;
 }
 

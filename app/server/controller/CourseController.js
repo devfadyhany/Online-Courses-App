@@ -1,4 +1,11 @@
-import {AddNewCourse, DeleteCourseById, EditCourseById, GetAllCourses, GetCourseById} from "../models/CourseModel.js";
+import {
+  AddNewCourse,
+  DeleteCourseById,
+  EditCourseById,
+  GetAllCourses,
+  GetCourseById,
+} from "../models/CourseModel.js";
+import { file_src } from "./Uploader.js";
 
 export const GetCourses = async (req, res) => {
   try {
@@ -60,6 +67,16 @@ export const DeleteCourse = async (req, res) => {
 export const AddCourse = async (req, res) => {
   try {
     const course = req.body;
+
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, "0");
+    let mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+    let yyyy = today.getFullYear();
+
+    today = yyyy + "/" + mm + "/" + dd;
+
+    course.publishDate = today;
+    course.image = file_src || "1.png";
 
     const result = await AddNewCourse(course);
 

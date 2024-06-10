@@ -16,6 +16,10 @@ export const GetAllUsers = async () => {
   return await GetAll(table);
 };
 
+export const GetSingleUser = async (id) => {
+  return await GetSingle(table, "id", id);
+};
+
 export const GetUserByEmail = async (email) => {
   return await GetSingle(table, "email", email);
 };

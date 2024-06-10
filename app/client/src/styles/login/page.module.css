@@ -1,5 +1,5 @@
 .container {
-  background: url("../../../../public/hero-background.jpg");
+  background: url("../../../public/hero-background.jpg");
   background-size: cover;
   height: 100vh;
   display: flex;
@@ -9,8 +9,8 @@
 }
 
 .LoginForm {
-  width: 50%;
-  padding: 20px 50px;
+  width: 450px;
+  padding: 20px 25px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -23,6 +23,7 @@
 .LoginForm h1 {
   margin: 15px 0;
   font-size: var(--medium-text-size);
+  text-transform: uppercase;
 }
 
 .LoginForm .TextGroup {
@@ -30,7 +31,7 @@
 }
 
 .LoginForm .TextGroup input {
-  margin: 15px 0;
+  margin: 10px 0;
   width: 100%;
   padding: 10px;
   border: none;
@@ -50,7 +51,9 @@
 }
 
 .LoginForm .SubmitBtn {
-  padding: 15px;
+  width: 100%;
+  margin-top: 15px;
+  padding: 10px;
   border-radius: 15px;
   border: 1px solid var(--primary-color);
   cursor: pointer;
@@ -64,6 +67,11 @@
   border-radius: 15px;
   cursor: pointer;
   background-color: var(--primary-color);
+}
+
+.Error {
+  color: red;
+  font-size: 16px;
 }
 
 @media (max-width: 1124px) {

@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import styles from "@/styles/courses/page.module.css";
 
 import { fas } from "@fortawesome/free-solid-svg-icons";
@@ -7,6 +9,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Card from "@/components/Card";
 
 export default function page() {
+  const [courses, setCourses] = useState([]);
+  const url = "http://localhost:8000/api/v1";
+
+  useEffect(() => {
+    fetch(`${url}/course`)
+      .then((res) => res.json())
+      .then((data) => setCourses(data.data));
+  }, []);
+
   return (
     <>
       <section className="container">
@@ -37,10 +48,13 @@ export default function page() {
 
       <section className="container">
         <div className={styles.coursesSection}>
-          <Card />
-          <Card />
-          <Card />
-          <Card />
+          {courses ? (
+            courses.map((course) => {
+              return <Card key={course.id} course={course} url={url} />;
+            })
+          ) : (
+            <h1 style={{ color: "white" }}>No Courses Found</h1>
+          )}
         </div>
       </section>
     </>

@@ -62,7 +62,7 @@ body {
   .container {
     padding: 0 25px;
   }
-} 
+}
 
 /* Navbar */
 header {
@@ -86,10 +86,6 @@ header {
 
 .navbar-scroll {
   background-color: var(--main-bg-color);
-}
-
-.navbar .logo {
-  width: 120px;
 }
 
 .navbar div .menu-btn {
@@ -126,6 +122,45 @@ header {
 
 .navbar div li .active {
   color: var(--primary-color);
+}
+
+.navbar .Profile {
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar .Profile a {
+  color: white;
+  text-decoration: none;
+  transition: all ease-in-out var(--transation-duration);
+  margin: 0 15px;
+}
+
+.navbar .Profile a:hover {
+  color: var(--primary-color);
+}
+
+.navbar .Profile img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.logoutBtn {
+  background-color: red;
+  color: white;
+  font-size: var(--small-text-size);
+  border: none;
+  padding: 10px 15px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all ease-in-out var(--transation-duration);
+}
+
+.logoutBtn:hover {
+  background-color: rgb(180, 0, 0);
 }
 
 @media (max-width: 768px) {
@@ -171,7 +206,7 @@ header {
     margin: 0;
   }
 
-  .navbar div .menu li:not(:last-child){
+  .navbar div .menu li:not(:last-child) {
     border-bottom: 1px solid var(--primary-color);
   }
 
@@ -183,6 +218,14 @@ header {
 
   .navbar div .menu li a:hover {
     background-color: #0c8a3e;
+  }
+
+  .navbar .Profile {
+    flex-direction: row;
+  }
+
+  .navbar div .menu li .Profile a {
+    margin: 0;
   }
 }
 
