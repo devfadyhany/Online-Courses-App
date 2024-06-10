@@ -1,13 +1,15 @@
 "use client";
 
 import Card from "@/components/Card";
+import { LoginContext } from "@/components/LoginContext";
 
 import styles from "@/styles/home/page.module.css";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 export default function Home() {
   const [courses, setCourses] = useState([]);
+  const { logged } = useContext(LoginContext);
   const url = "http://localhost:8000/api/v1";
 
   useEffect(() => {
@@ -26,14 +28,16 @@ export default function Home() {
       <section className={`container ${styles.hero}`}>
         <h1>A New Way Of Learning</h1>
         <h3>Modern Learning is Here</h3>
-        <div>
-          <Link className={styles.signUpBtn} href="/register">
-            Register
-          </Link>
-          <Link className={styles.signInBtn} href="/login">
-            Login
-          </Link>
-        </div>
+        {!logged.value && (
+          <div>
+            <Link className={styles.signUpBtn} href="/register">
+              Register
+            </Link>
+            <Link className={styles.signInBtn} href="/login">
+              Login
+            </Link>
+          </div>
+        )}
       </section>
 
       <h1 className="section-title">Latest Courses</h1>

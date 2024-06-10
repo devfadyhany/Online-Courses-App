@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import styles from "@/styles/courseDetails/page.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { fas } from "@fortawesome/free-solid-svg-icons";
+import { LoginContext } from "@/components/LoginContext";
 
 export default function page() {
   const url = "http://localhost:8000/api/v1";
@@ -12,6 +13,7 @@ export default function page() {
   const params = useParams();
   const [course, setCourse] = useState({});
   const [author, setAuthor] = useState("");
+  const { logged } = useContext(LoginContext);
 
   useEffect(() => {
     fetch(`${url}/course/${params.id}`)
@@ -48,7 +50,7 @@ export default function page() {
         <div className={styles.imgPart}>
           <img src={`${url}/course/img/${course.image}`} />
           <a href="" className={styles.purchaseBtn}>
-            Purchase
+            {logged.value ? "Purchase" : "You Must Login First"}
           </a>
         </div>
       </div>

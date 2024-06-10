@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import Link from "next/link";
 
 import { fas } from "@fortawesome/free-solid-svg-icons";
@@ -9,21 +9,22 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useCookies } from "next-client-cookies";
 import { useJwt } from "react-jwt";
+import { LoginContext } from "./LoginContext";
 
 export default function Navbar() {
-  const pathname = usePathname();
   const cookies = useCookies();
-  const [logged, setLogged] = useState(false);
+  const pathname = usePathname();
+  const { logged, changeLogin } = useContext(LoginContext);
   const { decodedToken, isExpired } = useJwt(cookies.get("token"));
   let toggleMenu = true;
 
   useEffect(() => {
     if (cookies.get("token") !== undefined) {
-      setLogged(true);
+      changeLogin({ value: true, user: decodedToken });
     }
 
     if (isExpired) {
-      setLogged(false);
+      changeLogin({ value: false, user: {} });
     }
 
     if (typeof window !== "undefined") {
@@ -37,7 +38,7 @@ export default function Navbar() {
         }
       });
     }
-  }, []);
+  }, [decodedToken]);
 
   const MobileMenuToggler = () => {
     let menu = document.querySelector("#myMenu");
@@ -50,7 +51,7 @@ export default function Navbar() {
 
   const LogOut = () => {
     cookies.remove("token");
-    setLogged(false);
+    changeLogin({ value: false, user: {} });
   };
 
   return (
@@ -95,14 +96,14 @@ export default function Navbar() {
                 Contact
               </Link>
             </li>
-            {logged && (
+            {(logged.value && logged.user != null) && (
               <>
                 <li>
                   <div className="Profile">
                     <img
-                      src={`http://localhost:8000/api/v1/user/img/${decodedToken.image}`}
+                      src={`http://localhost:8000/api/v1/user/img/${logged.user.image}`}
                     />
-                    <Link href="/#Account">{decodedToken.name}</Link>
+                    <Link href="/#Account">{logged.user.name}</Link>
                   </div>
                 </li>
                 <button className="logoutBtn" onClick={LogOut}>
