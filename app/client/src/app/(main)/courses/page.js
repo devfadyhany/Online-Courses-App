@@ -7,13 +7,13 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Card from "@/components/Card";
+import { API_URL } from "@/app/layout";
 
 export default function page() {
   const [courses, setCourses] = useState([]);
-  const url = "http://localhost:8000/api/v1";
 
   useEffect(() => {
-    fetch(`${url}/course`)
+    fetch(`${API_URL}/course`)
       .then((res) => res.json())
       .then((data) => setCourses(data.data));
   }, []);
@@ -39,9 +39,9 @@ export default function page() {
 
           <select name="Level Filter" id="">
             <option value="">Level Filter</option>
-            <option value="1">Beginner</option>
-            <option value="2">Intermediate</option>
-            <option value="3">Advanced</option>
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Advanced">Advanced</option>
           </select>
         </div>
       </section>
@@ -50,7 +50,7 @@ export default function page() {
         <div className={styles.coursesSection}>
           {courses ? (
             courses.map((course) => {
-              return <Card key={course.id} course={course} url={url} />;
+              return <Card key={course.id} course={course}/>;
             })
           ) : (
             <h1 style={{ color: "white" }}>No Courses Found</h1>

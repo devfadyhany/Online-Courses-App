@@ -6,21 +6,20 @@ import styles from "@/styles/courseDetails/page.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { LoginContext } from "@/components/LoginContext";
+import { API_URL } from "@/app/layout";
 
 export default function page() {
-  const url = "http://localhost:8000/api/v1";
-
   const params = useParams();
   const [course, setCourse] = useState({});
   const [author, setAuthor] = useState("");
   const { logged } = useContext(LoginContext);
 
   useEffect(() => {
-    fetch(`${url}/course/${params.id}`)
+    fetch(`${API_URL}/course/${params.id}`)
       .then((res) => res.json())
       .then((data) => {
         setCourse(data.data);
-        fetch(`${url}/user/${data.data.user_id}`)
+        fetch(`${API_URL}/user/${data.data.userId}`)
           .then((res) => res.json())
           .then((data) => setAuthor(data.data.name));
       });
@@ -34,7 +33,7 @@ export default function page() {
   ];
 
   const contentBackground = {
-    background: `url('${url}/course/img/${course.image}')`,
+    background: `url('${API_URL}/course/img/${course.image}')`,
   };
 
   return (
@@ -48,7 +47,7 @@ export default function page() {
           <h4>Author: {author}</h4>
         </div>
         <div className={styles.imgPart}>
-          <img src={`${url}/course/img/${course.image}`} />
+          <img src={`${API_URL}/course/img/${course.image}`} />
           <a href="" className={styles.purchaseBtn}>
             {logged.value ? "Purchase" : "You Must Login First"}
           </a>
@@ -57,7 +56,7 @@ export default function page() {
 
       <div className={styles.description}>
         <h3>Description</h3>
-        <p>{course.description}</p>
+        <pre>{course.description}</pre>
       </div>
 
       <div className={styles.videosList}>

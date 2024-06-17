@@ -3,12 +3,13 @@
 import React, { useEffect, useState } from "react";
 import styles from "@/styles/home/page.module.css";
 import Link from "next/link";
+import { API_URL } from "@/app/layout";
 
-export default function Card({ course, url }) {
+export default function Card({ course }) {
   const [author, setAuthor] = useState("");
 
   useEffect(() => {
-    fetch(`${url}/user/${course.user_id}`)
+    fetch(`${API_URL}/user/${course.userId}`)
       .then((res) => res.json())
       .then((data) => setAuthor(data.data.name));
   }, []);
@@ -21,7 +22,7 @@ export default function Card({ course, url }) {
         </div>
         <img
           className={styles.cardImg}
-          src={`${url}/course/img/${course.image}`}
+          src={`${API_URL}/course/img/${course.image}`}
           width={600}
           height={250}
           alt="card-img"

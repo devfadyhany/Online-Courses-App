@@ -8,7 +8,6 @@ import {
 } from "../models/UserModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { file_src } from "./Uploader.js";
 
 export const GetUsers = async (req, res) => {
   try {
@@ -130,7 +129,6 @@ export const Login = async (req, res) => {
 export const Register = async (req, res) => {
   try {
     const user = req.body;
-    // user.image = file_src;
 
     if (!user.isInstructor) {
       user.isInstructor = "N";

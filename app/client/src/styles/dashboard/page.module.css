@@ -1,0 +1,223 @@
+.cardHolder {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--main-text-color);
+}
+
+.cardOption {
+  width: 300px;
+  height: 400px;
+  background-color: var(--secondary-color);
+  border-radius: 25px;
+  transition: all ease-in-out var(--transation-duration);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--main-text-color);
+}
+
+.cardOption:hover {
+  box-shadow: 0 0 15px 5px white;
+}
+
+.cardOption svg {
+  font-size: 128px;
+  margin-bottom: 25px;
+}
+
+.coursesTable {
+  width: 100%;
+  height: 100vh;
+}
+
+.coursesTable table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  background-color: white;
+}
+
+.coursesTable table tbody {
+  color: black;
+}
+
+.coursesTable table td,
+.coursesTable table th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.coursesTable table th {
+  background-color: var(--primary-color);
+}
+
+.coursesTable table tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.coursesTable table tr div a {
+  font-size: 15px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px;
+}
+
+.header button {
+  color: var(--main-text-color);
+  font-size: var(--medium-text-size);
+  background-color: var(--primary-color);
+  padding: 15px 20px;
+  border: none;
+  border-radius: 50%;
+  transition: all ease-in-out var(--transation-duration);
+  cursor: pointer;
+}
+
+.header button:hover {
+  background-color: var(--secondary-color);
+}
+
+.createCourseFormOverlay {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.createCourseForm {
+  width: 600px;
+  background-image: linear-gradient(var(--primary-color), var(--secondary-color));
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 25px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.createCourseForm .formTitle {
+  font-size: var(--medium-text-size);
+  margin-bottom: 25px;
+}
+
+.createCourseForm input,
+.createCourseForm select,
+.createCourseForm button,
+.createCourseForm textarea{
+  width: 100%;
+  height: 50px;
+  padding: 15px;
+  font-size: 16px;
+  border-radius: 15px;
+  border: none;
+  margin-bottom: 15px;
+}
+
+.createCourseForm textarea {
+  height: 100px;
+}
+
+.createCourseForm button {
+  color: white;
+  cursor: pointer;
+  background-color: var(--secondary-color);
+  transition: all ease-in-out var(--transation-duration);
+}
+
+.createCourseForm button:hover {
+  fill-opacity: 0.5;
+  background-color: var(--primary-color);
+}
+
+.createCourseForm .formHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.createCourseForm .formHeader button {
+  width: 20%;
+}
+
+.createCourseForm .fileGroup {
+  width: 100%;
+  padding: 25px;
+  border: 1px solid var(--secondary-color);
+  border-radius: 15px;
+  margin-bottom: 15px;
+  display: flex;
+}
+
+.closeFormButton {
+  z-index: 1000;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: red;
+  color: var(--main-text-color);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 15px 20px;
+  font-size: var(--medium-text-size);
+  transition: all ease-in-out var(--transation-duration);
+}
+
+.closeFormButton:hover {
+  background-color: rgb(180, 0, 0);
+}
+
+.OperationCell {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.coursesTable table tbody tr .OperationCell button{
+  font-size: 32px;
+  transition: all ease-in-out var(--transation-duration);
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.EditBtn {
+  color: var(--primary-color);
+}
+
+.EditBtn:hover {
+  color: var(--secondary-color);
+}
+
+.DeleteBtn {
+  color: red;
+}
+
+.DeleteBtn:hover {
+  color: rgb(180, 0, 0);
+}

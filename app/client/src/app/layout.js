@@ -5,20 +5,21 @@ import { LoginContextProvider } from "@/components/LoginContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata = {
-  title: "Online EDU App",
-  description: "Created by fady hany",
-};
+// const metadata = {
+//   title: "Online EDU App",
+//   description: "Created by fady hany",
+// };
 
+export const API_URL = "http://localhost:8000/api/v1/";
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <LoginContextProvider>
-        <CookiesProvider>
+      <CookiesProvider>
+        <LoginContextProvider>
           <body className={inter.className}>{children}</body>
-        </CookiesProvider>
-      </LoginContextProvider>
+        </LoginContextProvider>
+      </CookiesProvider>
     </html>
   );
 }

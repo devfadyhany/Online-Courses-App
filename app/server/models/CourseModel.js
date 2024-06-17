@@ -1,4 +1,11 @@
-import { GetAll, GetSingle, Delete, Add, Edit } from "../core/Model.js";
+import {
+  GetAll,
+  GetSingle,
+  Delete,
+  Add,
+  Edit,
+  executeQuery,
+} from "../core/Model.js";
 
 const table = "course";
 
@@ -15,6 +22,10 @@ const table = "course";
 
 export const GetAllCourses = async () => {
   return await GetAll(table);
+};
+
+export const GetInstructorCourses = async (userId) => {
+  return await executeQuery(`select * from ${table} where userId = ?`, userId);
 };
 
 export const GetCourseById = async (id) => {

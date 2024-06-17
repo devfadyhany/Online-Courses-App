@@ -4,14 +4,31 @@ import {
   EditCourseById,
   GetAllCourses,
   GetCourseById,
+  GetInstructorCourses,
 } from "../models/CourseModel.js";
-import { file_src } from "./Uploader.js";
 
 export const GetCourses = async (req, res) => {
   try {
     const data = await GetAllCourses();
 
-    if (data.length != 0) {
+    if (data.length !== 0) {
+      return res.status(200).send({ status: 200, data: data });
+    }
+
+    return res
+      .status(404)
+      .send({ status: 404, message: "No courses have been found." });
+  } catch (err) {
+    return res.status(500).send({ status: 500, message: err.message });
+  }
+};
+
+export const InstructorCourses = async (req, res) => {
+  const userId = req.params.userId;
+  try {
+    const data = await GetInstructorCourses(userId);
+
+    if (data.length !== 0) {
       return res.status(200).send({ status: 200, data: data });
     }
 
@@ -69,14 +86,13 @@ export const AddCourse = async (req, res) => {
     const course = req.body;
 
     let today = new Date();
-    let dd = String(today.getDate()).padStart(2, "0");
+    let dd = String(today.getDate() + 1).padStart(2, "0");
     let mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
     let yyyy = today.getFullYear();
 
     today = yyyy + "/" + mm + "/" + dd;
 
     course.publishDate = today;
-    course.image = file_src || "1.png";
 
     const result = await AddNewCourse(course);
 

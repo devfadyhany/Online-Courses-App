@@ -6,14 +6,14 @@ import { LoginContext } from "@/components/LoginContext";
 import styles from "@/styles/home/page.module.css";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
+import { API_URL } from "../layout";
 
 export default function Home() {
   const [courses, setCourses] = useState([]);
   const { logged } = useContext(LoginContext);
-  const url = "http://localhost:8000/api/v1";
 
   useEffect(() => {
-    fetch(`${url}/course`)
+    fetch(`${API_URL}/course`)
       .then((res) => res.json())
       .then((data) => setCourses(data.data));
 
@@ -45,7 +45,7 @@ export default function Home() {
       <section className={`container ${styles.latestCourses}`}>
         {courses ? (
           courses.map((course) => {
-            return <Card key={course.id} course={course} url={url} />;
+            return <Card key={course.id} course={course}/>;
           })
         ) : (
           <h1 style={{ color: "white" }}>No Courses Found!</h1>

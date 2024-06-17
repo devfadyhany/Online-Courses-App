@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "@/styles/login/page.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCookies } from "next-client-cookies";
+import { API_URL } from "@/app/layout";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -14,14 +15,13 @@ function Login() {
     message: "",
     token: "",
   });
-  const url = "http://localhost:8000/api/v1/";
   const router = useRouter();
   const cookies = useCookies();
 
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    await fetch(`${url}user/login`, {
+    await fetch(`${API_URL}user/login`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",

@@ -3,11 +3,10 @@
 import React, { useState } from "react";
 import styles from "@/styles/register/page.module.css";
 import Link from "next/link";
-import { useCookies } from "next-client-cookies";
 import { useRouter } from "next/navigation";
+import { API_URL } from "@/app/layout";
 
 function Register() {
-  const url = "http://localhost:8000/api/v1/";
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,30 +15,39 @@ function Register() {
   const [image, setImage] = useState({});
   const [preview, setPreview] = useState("");
   const [response, setResponse] = useState({});
-  const cookies = useCookies();
   const router = useRouter();
-
   const formData = new FormData();
+
+  const ValidData = ({ username, password, email, gender, image }) => {
+    if (username.length < 3 || email.length < 3) {
+      return false;
+    }
+
+    if (password.length < 8) {
+      return false;
+    }
+
+    if (gender !== "M" || gender !== "F") {
+      return false;
+    }
+
+    if (!image) {
+      return false;
+    }
+
+    return true;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(username);
-    console.log(email);
-    console.log(password);
-    console.log(gender);
-    console.log(isInstructor);
-    console.log(image);
 
-    if (
-      username.length >= 3 &&
-      password >= 8 &&
-      (gender == "M" || gender == "F") &&
-      image
-    ) {
-      const file = new File([image] , `${Date.now()}${image.name}`);
+    const user = { username, password, email, gender, image };
+
+    if (ValidData(user)) {
+      const file = new File([image], `${Date.now()}${image.name}`);
       formData.append("image", file);
 
-      await fetch(`${url}user/register`, {
+      await fetch(`${API_URL}user/register`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -55,14 +63,13 @@ function Register() {
       })
         .then((res) => res.json())
         .then(async (data) => {
-          await fetch(`${url}user/uploadImage`, {
+          await fetch(`${API_URL}user/uploadImage`, {
             method: "POST",
             body: formData,
           });
           setResponse(data);
           if (data.status === 200) {
-            cookies.set("token", data.token);
-            router.push("/");
+            router.push("/login");
           }
         });
     }
@@ -72,7 +79,6 @@ function Register() {
     <div className={styles.container}>
       <form
         onSubmit={handleSubmit}
-        action="http://192.168.1.103:8000/api/v1/user/register"
         encType="multipart/form-data"
         className={styles.RegisterForm}
       >

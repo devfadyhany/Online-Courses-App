@@ -31,6 +31,7 @@ a {
 
 body {
   background-color: var(--main-bg-color);
+  color: var(--main-text-color);
 }
 
 .container {
@@ -129,23 +130,52 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
-.navbar .Profile a {
+.navbar .Profile p {
   color: white;
   text-decoration: none;
   transition: all ease-in-out var(--transation-duration);
   margin: 0 15px;
 }
 
-.navbar .Profile a:hover {
-  color: var(--primary-color);
+.navbar .Profile:hover .profileMenu{
+  display: flex;
 }
 
 .navbar .Profile img {
   width: 50px;
   height: 50px;
   border-radius: 50%;
+}
+
+.navbar .Profile .profileMenu {
+  background-color: white;
+  color: black;
+  position: absolute;
+  top: 40px;
+  list-style: none;
+  border-radius: 15px;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 150px;
+}
+
+.navbar .Profile .profileMenu li {
+  margin: 0;
+  padding: 15px;
+  cursor: pointer;
+}
+
+.navbar .Profile .profileMenu li:hover a {
+  color: var(--primary-color);
+}
+
+.navbar .Profile .profileMenu li a {
+  color: black;
 }
 
 .logoutBtn {
@@ -222,10 +252,16 @@ header {
 
   .navbar .Profile {
     flex-direction: row;
+    padding: 15px 0;
   }
 
-  .navbar div .menu li .Profile a {
+  .navbar div .menu li .Profile .profileMenu{
+    top: 50px;
+  }
+
+  .navbar div .menu li .Profile .profileMenu a:hover {
     margin: 0;
+    background-color: white;
   }
 }
 
