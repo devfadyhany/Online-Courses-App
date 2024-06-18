@@ -24,6 +24,23 @@ export const GetAllCourses = async () => {
   return await GetAll(table);
 };
 
+export const SearchCourses = async (title, level, price) => {
+  if (title) {
+    return await executeQuery(
+      `select * from ${table} where title LIKE ?`,
+      '%'+title+'%'
+    );
+  }
+
+  if (level) {
+    return await executeQuery(`select * from ${table} where level = ?`, level);
+  }
+
+  if (price) {
+    return await executeQuery(`select * from ${table} where price <= ?`, price);
+  }
+};
+
 export const GetInstructorCourses = async (userId) => {
   return await executeQuery(`select * from ${table} where userId = ?`, userId);
 };

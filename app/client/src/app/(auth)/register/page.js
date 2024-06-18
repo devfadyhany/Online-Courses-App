@@ -5,6 +5,7 @@ import styles from "@/styles/register/page.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { API_URL } from "@/app/layout";
+import { toast } from "react-toastify";
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -69,7 +70,18 @@ function Register() {
           });
           setResponse(data);
           if (data.status === 200) {
-            router.push("/login");
+            toast.success("Registered Successfully", {
+              closeOnClick: true,
+              autoClose: 2000,
+              theme: "dark",
+            });
+            router.push("/");
+          } else {
+            toast.error(data.message, {
+              closeOnClick: true,
+              autoClose: 2000,
+              theme: "dark",
+            });
           }
         });
     }

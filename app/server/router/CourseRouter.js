@@ -11,7 +11,8 @@ import { courseImageUpload } from "../controller/Uploader.js";
 
 const courseRouter = express.Router();
 
-courseRouter.route("/").get(GetCourses).post(AddCourse);
+courseRouter.get("/",GetCourses);
+courseRouter.post("/", AddCourse)
 courseRouter.post(
   "/uploadImage",
   courseImageUpload.single("image"),

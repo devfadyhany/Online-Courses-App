@@ -8,6 +8,8 @@ import { LoginContext } from "@/components/LoginContext";
 import { useParams } from "next/navigation";
 import CourseForm from "@/components/CourseForm";
 import { API_URL } from "@/app/layout";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function InstructorCourses() {
   const { logged } = useContext(LoginContext);
@@ -32,7 +34,21 @@ function InstructorCourses() {
       method: "DELETE",
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        if (data.status === 200) {
+          toast.success("Course Has Been Deleted Successfully", {
+            closeOnClick: true,
+            autoClose: 2000,
+            theme: "dark",
+          });
+        } else {
+          toast.error(data.message, {
+            closeOnClick: true,
+            autoClose: 2000,
+            theme: "dark",
+          });
+        }
+      });
   };
 
   return (

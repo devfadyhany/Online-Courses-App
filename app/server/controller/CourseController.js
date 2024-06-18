@@ -5,11 +5,22 @@ import {
   GetAllCourses,
   GetCourseById,
   GetInstructorCourses,
+  SearchCourses,
 } from "../models/CourseModel.js";
 
 export const GetCourses = async (req, res) => {
+  let data;
+
   try {
-    const data = await GetAllCourses();
+    const title = req.query.title;
+    const level = req.query.level;
+    const price = req.query.price;
+
+    if (title || level || price) {
+      data = await SearchCourses(title, level, price);
+    } else {
+      data = await GetAllCourses();
+    }
 
     if (data.length !== 0) {
       return res.status(200).send({ status: 200, data: data });

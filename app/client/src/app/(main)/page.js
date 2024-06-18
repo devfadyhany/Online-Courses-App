@@ -12,16 +12,15 @@ export default function Home() {
   const [courses, setCourses] = useState([]);
   const { logged } = useContext(LoginContext);
 
-  useEffect(() => {
-    fetch(`${API_URL}/course`)
+  const GetAllCourses = async () => {
+    return await fetch(`${API_URL}/course`)
       .then((res) => res.json())
       .then((data) => setCourses(data.data));
+  };
 
-    setCourses(
-      courses.sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate))
-    );
-    setCourses(courses.slice(0, 3));
-  }, []);
+  useEffect(() => {
+    GetAllCourses();
+  }, [courses]);
 
   return (
     <>
@@ -45,7 +44,7 @@ export default function Home() {
       <section className={`container ${styles.latestCourses}`}>
         {courses ? (
           courses.map((course) => {
-            return <Card key={course.id} course={course}/>;
+            return <Card key={course.id} course={course} />;
           })
         ) : (
           <h1 style={{ color: "white" }}>No Courses Found!</h1>

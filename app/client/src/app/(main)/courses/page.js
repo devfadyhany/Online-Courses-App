@@ -11,33 +11,70 @@ import { API_URL } from "@/app/layout";
 
 export default function page() {
   const [courses, setCourses] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [level, setLevel] = useState("");
+  const [price, setPrice] = useState("");
 
-  useEffect(() => {
-    fetch(`${API_URL}/course`)
+  const GetAllCourses = async () => {
+    return await fetch(
+      `${API_URL}/course?title=${searchQuery}&level=${level}&price=${price}`
+    )
       .then((res) => res.json())
       .then((data) => setCourses(data.data));
-  }, []);
+  };
+
+  const ClearFilters = () => {
+    setSearchQuery("");
+    setLevel("");
+    setPrice("");
+  };
+
+  useEffect(() => {
+    GetAllCourses();
+  }, [searchQuery, level, price]);
 
   return (
     <>
       <section className="container">
         <div className={styles.searchSection}>
-          <input type="text" placeholder="Enter Your Search Here..." />
+          <input
+            value={searchQuery}
+            onChange={(e) => {
+              ClearFilters();
+              setSearchQuery(e.target.value);
+            }}
+            type="text"
+            placeholder="Enter Your Search Here..."
+          />
           <FontAwesomeIcon icon={fas.faMagnifyingGlass} />
         </div>
       </section>
 
       <section className="container">
         <div className={styles.filtersSection}>
-          <select name="Price Filter" id="">
+          <select
+            value={price}
+            onChange={(e) => {
+              ClearFilters();
+              setPrice(e.target.value);
+            }}
+            name="Price Filter"
+          >
             <option value="">Price Filter</option>
-            <option value="5">5$ - 10$</option>
-            <option value="10">10$ - 15$</option>
-            <option value="15">15$ - 20$</option>
-            <option value="20">20$ - 25$</option>
+            <option value="20">Less Than 20$</option>
+            <option value="50">Less Than 50$</option>
+            <option value="100">Less Than 100$</option>
+            <option value="1000">Less Than 1000$</option>
           </select>
 
-          <select name="Level Filter" id="">
+          <select
+            value={level}
+            onChange={(e) => {
+              ClearFilters();
+              setLevel(e.target.value);
+            }}
+            name="Level Filter"
+          >
             <option value="">Level Filter</option>
             <option value="Beginner">Beginner</option>
             <option value="Intermediate">Intermediate</option>
@@ -50,7 +87,7 @@ export default function page() {
         <div className={styles.coursesSection}>
           {courses ? (
             courses.map((course) => {
-              return <Card key={course.id} course={course}/>;
+              return <Card key={course.id} course={course} />;
             })
           ) : (
             <h1 style={{ color: "white" }}>No Courses Found</h1>

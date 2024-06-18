@@ -29,8 +29,8 @@ export default function Card({ course }) {
         />
         <div className={styles.cardText}>
           <h3>
-            {course.title.length > 20
-              ? `${course.title.slice(0, 16)}...`
+            {course.title.length > 64
+              ? `${course.title.slice(0, 64)}...`
               : course.title}
           </h3>
           <h5>{`Author: ${author}`}</h5>

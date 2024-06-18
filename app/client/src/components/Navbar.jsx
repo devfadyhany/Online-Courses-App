@@ -8,10 +8,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { LoginContext } from "./LoginContext";
+import { API_URL } from "@/app/layout";
 
 export default function Navbar() {
   const pathname = usePathname();
-  const { logged, changeLogin } = useContext(LoginContext);
+  const { logged, changeLogin, LogOut } = useContext(LoginContext);
   let toggleMenu = true;
 
   useEffect(() => {
@@ -19,10 +20,12 @@ export default function Navbar() {
       window.addEventListener("scroll", () => {
         let header = document.querySelector("#Header");
 
-        if (window.scrollY > 10) {
-          header.classList.add("navbar-scroll");
-        } else {
-          header.classList.remove("navbar-scroll");
+        if (header !== null) {
+          if (window.scrollY > 10) {
+            header.classList.add("navbar-scroll");
+          } else {
+            header.classList.remove("navbar-scroll");
+          }
         }
       });
     }
@@ -37,15 +40,16 @@ export default function Navbar() {
     toggleMenu = !toggleMenu;
   };
 
-  const LogOut = () => {
-    cookies.remove("token");
-    changeLogin({ value: false, user: {} });
-  };
-
   return (
     <header id="Header">
       <nav className="navbar">
-        <Image src="/Logo.png" width={120} height={50} alt="page_logo" />
+        <Image
+          src="/Logo.png"
+          width={120}
+          height={50}
+          alt="page_logo"
+          priority
+        />
         <div>
           <FontAwesomeIcon
             className="menu-btn"
@@ -88,9 +92,7 @@ export default function Navbar() {
               <>
                 <li>
                   <div className="Profile">
-                    <img
-                      src={`http://localhost:8000/api/v1/user/img/${logged.user.image}`}
-                    />
+                    <img src={`${API_URL}user/img/${logged.user.image}`} />
                     <p>{logged.user.name}</p>
                     <ul className="profileMenu">
                       <li>
