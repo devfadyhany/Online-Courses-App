@@ -9,13 +9,19 @@ import { useParams } from "next/navigation";
 import CourseForm from "@/components/CourseForm";
 import { API_URL } from "@/app/layout";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import MessageBox from "@/components/MessageBox";
 
 function InstructorCourses() {
   const { logged } = useContext(LoginContext);
   const params = useParams();
   const [courses, setCourses] = useState([]);
   const [showForm, setShowForm] = useState(false);
+  const [messageBox, setMessageBox] = useState({
+    show: false,
+    message: "",
+    yesFunction: null,
+    noFunction: null,
+  });
   const [EditMode, setEditMode] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState({});
 
@@ -28,6 +34,28 @@ function InstructorCourses() {
 
     FetchData();
   }, [courses]);
+
+  const CloseMessageBox = () => {
+    setMessageBox({
+      show: false,
+      message: "",
+      yesFunction: null,
+      noFunction: null,
+    });
+  };
+
+  const CloseCourseForm = () => {
+    setShowForm(false);
+  };
+
+  const CreateMessageBox = (message, yesFunction, noFunction) => {
+    setMessageBox({
+      show: true,
+      message: message,
+      yesFunction: yesFunction,
+      noFunction: noFunction,
+    });
+  };
 
   const DeleteCourse = async (courseId) => {
     await fetch(`${API_URL}course/${courseId}`, {
@@ -49,6 +77,8 @@ function InstructorCourses() {
           });
         }
       });
+
+    CloseMessageBox();
   };
 
   return (
@@ -57,13 +87,19 @@ function InstructorCourses() {
         <div className={`container ${styles.content}`}>
           {logged.user.id == params.id ? (
             <>
+              {messageBox.show && (
+                <MessageBox
+                  message={messageBox.message}
+                  yesFunction={messageBox.yesFunction}
+                  noFunction={messageBox.noFunction}
+                />
+              )}
+
               {showForm && (
                 <div>
                   <button
                     className={styles.closeFormButton}
-                    onClick={() => {
-                      setShowForm(false);
-                    }}
+                    onClick={CloseCourseForm}
                   >
                     <FontAwesomeIcon icon={fas.faX} />
                   </button>
@@ -71,6 +107,7 @@ function InstructorCourses() {
                     EditMode={EditMode}
                     instructorId={params.id}
                     courseId={selectedCourse.id}
+                    CloseForm={CloseCourseForm}
                   />
                 </div>
               )}
@@ -86,6 +123,7 @@ function InstructorCourses() {
                   <FontAwesomeIcon icon={fas.faPlus} />
                 </button>
               </div>
+
               {courses ? (
                 <div className={styles.coursesTable}>
                   <table>
@@ -113,10 +151,10 @@ function InstructorCourses() {
                                 ? `${course.description.slice(0, 48)}...`
                                 : course.description}
                             </td>
-                            <td>{course.price}</td>
+                            <td>${course.price}</td>
                             <td>{course.level}</td>
                             <td>{course.length}</td>
-                            <td>{course.publishDate.slice(0, 10)}</td>
+                            <td style={{width: "150px"}}>{course.publishDate.slice(0, 10)}</td>
                             <td className={styles.OperationCell}>
                               <div>
                                 <button
@@ -134,7 +172,13 @@ function InstructorCourses() {
                                 <button
                                   className={styles.DeleteBtn}
                                   onClick={() => {
-                                    DeleteCourse(course.id);
+                                    CreateMessageBox(
+                                      `Are You Sure You Want To Delete ${course.title}`,
+                                      () => {
+                                        DeleteCourse(course.id);
+                                      },
+                                      CloseMessageBox
+                                    );
                                   }}
                                 >
                                   <FontAwesomeIcon icon={fas.faTrash} />

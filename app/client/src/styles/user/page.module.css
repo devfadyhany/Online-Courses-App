@@ -1,0 +1,19 @@
+.CardHolder {
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  gap: 5%;
+}
+
+@media (max-width: 1024px) {
+  .CardHolder {
+    grid-template-columns: auto auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .CardHolder {
+    grid-template-columns: auto;
+    padding: 0 10%;
+  }
+}

@@ -12,10 +12,12 @@ import { API_URL } from "@/app/layout";
 
 export default function Navbar() {
   const pathname = usePathname();
-  const { logged, changeLogin, LogOut } = useContext(LoginContext);
+  const { logged, UpdateLoginState, LogOut } = useContext(LoginContext);
   let toggleMenu = true;
 
   useEffect(() => {
+    UpdateLoginState();
+
     if (typeof window !== "undefined") {
       window.addEventListener("scroll", () => {
         let header = document.querySelector("#Header");
@@ -96,10 +98,10 @@ export default function Navbar() {
                     <p>{logged.user.name}</p>
                     <ul className="profileMenu">
                       <li>
-                        <Link href={`/user/${logged.user.id}`}>My Account</Link>
+                        <Link href={`/user/account`}>My Account</Link>
                       </li>
                       <li>
-                        <Link href={`/user/courses/${logged.user.id}`}>
+                        <Link href={`/user/courses`}>
                           My Courses
                         </Link>
                       </li>

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const CourseForm = ({ EditMode, instructorId, courseId }) => {
+const CourseForm = ({ EditMode, instructorId, courseId, CloseForm }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -110,7 +110,9 @@ const CourseForm = ({ EditMode, instructorId, courseId }) => {
                 closeOnClick: true,
                 autoClose: 2000,
                 theme: "dark",
+                onClose: CloseForm,
               });
+              CloseForm();
             } else {
               toast.error(data.message, {
                 closeOnClick: true,
@@ -150,9 +152,18 @@ const CourseForm = ({ EditMode, instructorId, courseId }) => {
             });
 
             if (data.status === 200) {
-              console.log("success");
+              toast.success("Course Has Been Edited Successfully", {
+                closeOnClick: true,
+                autoClose: 2000,
+                theme: "dark",
+                onClose: CloseForm,
+              });
             } else {
-              console.log(data.message);
+              toast.error(data.message, {
+                closeOnClick: true,
+                autoClose: 2000,
+                theme: "dark",
+              });
             }
           });
       } else {
@@ -175,6 +186,7 @@ const CourseForm = ({ EditMode, instructorId, courseId }) => {
                 closeOnClick: true,
                 autoClose: 2000,
                 theme: "dark",
+                onClose: CloseForm,
               });
             } else {
               toast.error(data.message, {

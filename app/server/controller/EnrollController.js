@@ -1,4 +1,9 @@
-import {Enroll, Expel, GetAllEnrolls, GetEnrollsByUserId} from "../models/EnrollModel.js";
+import {
+  Enroll,
+  Expel,
+  GetAllEnrolls,
+  GetEnrollsByUserId,
+} from "../models/EnrollModel.js";
 
 export const GetEnrolls = async (req, res) => {
   try {
@@ -23,7 +28,7 @@ export const GetUserEnrolls = async (req, res) => {
     const data = await GetEnrollsByUserId(user_id);
 
     if (data.length != 0) {
-      return res.status(200).send({ status: 200, data: data[0] });
+      return res.status(200).send({ status: 200, data: data });
     }
 
     return res
@@ -57,7 +62,8 @@ export const DeleteEnroll = async (req, res) => {
 
 export const EnrollUser = async (req, res) => {
   try {
-    const { user_id, course_id } = req.body;
+    const user_id = req.body.user_id;
+    const course_id = req.body.course_id;
 
     const result = await Enroll(user_id, course_id);
 

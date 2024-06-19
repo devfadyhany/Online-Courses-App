@@ -16,7 +16,7 @@ const LoginContextProvider = ({ children }) => {
     setLogged(logged);
   };
 
-  const LogOut = (logged) => {
+  const LogOut = () => {
     cookies.remove("token");
     setLogged(false, null);
 
@@ -27,18 +27,24 @@ const LoginContextProvider = ({ children }) => {
     });
   };
 
-  useEffect(() => {
-    if (cookies.get("token") !== undefined) {
+  const UpdateLoginState = () => {
+    if (cookies.get("token") !== undefined && decodedToken != null) {
       changeLogin({ value: true, user: decodedToken });
     }
 
     if (isExpired) {
       changeLogin({ value: false, user: null });
     }
+  };
+
+  useEffect(() => {
+    UpdateLoginState();
   }, [decodedToken]);
 
   return (
-    <LoginContext.Provider value={{ logged, changeLogin, LogOut }}>
+    <LoginContext.Provider
+      value={{ logged, changeLogin, LogOut, UpdateLoginState }}
+    >
       {children}
     </LoginContext.Provider>
   );
