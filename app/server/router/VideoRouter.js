@@ -1,13 +1,27 @@
-// const videoRouter = require("express").Router();
-// const VideoController = require("../controller/VideoController");
+import express from "express";
+import {
+  EditVideoDetails,
+  GetVideoInfo,
+  AddNewVideo,
+  DeleteExistingVideo,
+  GetVideos,
+} from "../controller/VideoController.js";
+import { courseVideoUpload } from "../controller/Uploader.js";
 
-// videoRouter
-//   .route("/")
-//   .get(VideoController.GetVideo)
-//   .post(VideoController.UploadVideo)
-//   .delete(VideoController.DeleteVideo);
+const videoRouter = express.Router();
 
-// videoRouter.get("/:course_id", VideoController.GetCourseVideos);
-// videoRouter.put("/:video_src", VideoController.EditVideo);
+videoRouter.post("/", AddNewVideo);
+videoRouter.get("/:course_id", GetVideos);
+videoRouter
+  .route("/source/:video_src")
+  .get(GetVideoInfo)
+  .put(EditVideoDetails)
+  .delete(DeleteExistingVideo);
 
-// module.exports = videoRouter;
+videoRouter.post("/upload", courseVideoUpload.single("video"), (req, res) => {
+  res.send("Video Uploaded Successfully");
+});
+
+videoRouter.use("/sources", express.static("Videos"));
+
+export default videoRouter;

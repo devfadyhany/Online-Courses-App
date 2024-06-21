@@ -15,9 +15,7 @@ export default function Navbar() {
   const { logged, UpdateLoginState, LogOut } = useContext(LoginContext);
   let toggleMenu = true;
 
-  useEffect(() => {
-    UpdateLoginState();
-
+  const UpdateBackground = () => {
     if (typeof window !== "undefined") {
       window.addEventListener("scroll", () => {
         let header = document.querySelector("#Header");
@@ -31,6 +29,11 @@ export default function Navbar() {
         }
       });
     }
+  };
+
+  useEffect(() => {
+    UpdateLoginState();
+    UpdateBackground();
   }, []);
 
   const MobileMenuToggler = () => {
@@ -101,9 +104,7 @@ export default function Navbar() {
                         <Link href={`/user/account`}>My Account</Link>
                       </li>
                       <li>
-                        <Link href={`/user/courses`}>
-                          My Courses
-                        </Link>
+                        <Link href={`/user/courses`}>My Courses</Link>
                       </li>
                       {logged.user.isInstructor == "Y" && (
                         <li>

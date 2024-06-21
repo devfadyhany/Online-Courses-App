@@ -3,8 +3,7 @@
 import { API_URL } from "@/app/layout";
 import styles from "@/styles/dashboard/page.module.css";
 import { useEffect, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 const CourseForm = ({ EditMode, instructorId, courseId, CloseForm }) => {
   const [title, setTitle] = useState("");
@@ -269,6 +268,7 @@ const CourseForm = ({ EditMode, instructorId, courseId, CloseForm }) => {
               <input
                 type="file"
                 name="image"
+                accept="image/*"
                 onChange={(e) => {
                   setImage(e.target.files[0]);
                   setPreview(URL.createObjectURL(e.target.files[0]));
@@ -281,7 +281,6 @@ const CourseForm = ({ EditMode, instructorId, courseId, CloseForm }) => {
           <button type="submit">{EditMode ? "Edit" : "Create"}</button>
         </form>
       </div>
-      <ToastContainer />
     </>
   );
 };

@@ -7,13 +7,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { LoginContext } from "@/components/LoginContext";
 import { API_URL } from "@/app/layout";
+import Link from "next/link";
 
 export default function page() {
   const params = useParams();
   const router = useRouter();
   const [course, setCourse] = useState({});
+  const [videos, setVideos] = useState([]);
   const [author, setAuthor] = useState("");
-  const [userEnrolls, setEnrolls] = useState([]);
   const [enrollment, setEnrollment] = useState(false);
   const { logged } = useContext(LoginContext);
 
@@ -25,6 +26,10 @@ export default function page() {
         await fetch(`${API_URL}/user/${data.data.userId}`)
           .then((res) => res.json())
           .then((data) => setAuthor(data.data.name));
+
+        await fetch(`${API_URL}/video/${params.id}`)
+          .then((res) => res.json())
+          .then((video) => setVideos(video.data));
       });
   };
 
@@ -33,13 +38,16 @@ export default function page() {
       return await fetch(`${API_URL}enroll/${logged.user.id}`)
         .then((res) => res.json())
         .then((data) => {
-          setEnrolls(data.data);
           CheckEnrollment(data.data);
         });
     }
   };
 
   const CheckEnrollment = (enrolls) => {
+    if (enrolls == null) {
+      return;
+    }
+
     enrolls.forEach((enroll) => {
       if (enroll.course_id == params.id) {
         setEnrollment(true);
@@ -69,13 +77,6 @@ export default function page() {
       .then((res) => res.json())
       .then((data) => router.push(data.url));
   };
-
-  const videos = [
-    {
-      course_id: params.id,
-      title: "introduction",
-    },
-  ];
 
   const contentBackground = {
     background: `url('${API_URL}/course/img/${course.image}')`,
@@ -114,19 +115,26 @@ export default function page() {
       </div>
 
       <div className={styles.videosList}>
-        <h3>Videos</h3>
-        <ul>
-          {videos.map((video, index) => {
-            return (
-              <li key={index}>
-                <a href="">
-                  <FontAwesomeIcon icon={fas.faCirclePlay} />
-                  {index + 1 < 10 ? `0${index + 1}` : index + 1}-{video.title}
-                </a>
-              </li>
-            );
-          })}
-        </ul>
+        {videos ? (
+          <>
+            <h3>Videos</h3>
+            <ul>
+              {videos.map((video, index) => {
+                return (
+                  <li key={index}>
+                    <Link href={`/course/${params.id}/watch?video=${video.video_src}`}>
+                      <FontAwesomeIcon icon={fas.faCirclePlay} />
+                      {index + 1 < 10 ? `0${index + 1}` : index + 1}-
+                      {video.title}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </>
+        ) : (
+          <h3>No Videos Yet.</h3>
+        )}
       </div>
     </>
   );

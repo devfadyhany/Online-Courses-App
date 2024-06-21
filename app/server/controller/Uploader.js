@@ -18,5 +18,15 @@ const courseImagesStorage = multer.diskStorage({
   },
 });
 
+const courseVideosStorage = multer.diskStorage({
+  destination: (req, file, callback) => {
+    callback(null, "Videos");
+  },
+  filename: (req, file, callback) => {
+    callback(null, file.originalname);
+  },
+});
+
 export const profileImageUpload = multer({ storage: profileImagesStorage });
 export const courseImageUpload = multer({ storage: courseImagesStorage });
+export const courseVideoUpload = multer({ storage: courseVideosStorage });

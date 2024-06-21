@@ -1,22 +1,18 @@
 "use client";
 
-import React, { useContext, useEffect, useState } from "react";
-import styles from "@/styles/dashboard/page.module.css";
-import { fas } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { LoginContext } from "@/components/LoginContext";
+import VideoForm from "@/components/VideoForm";
 import { useParams } from "next/navigation";
-import CourseForm from "@/components/CourseForm";
+import styles from "@/styles/dashboard/page.module.css";
+import React, { useContext, useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { fas } from "@fortawesome/free-solid-svg-icons";
 import { API_URL } from "@/app/layout";
-import { toast } from "react-toastify";
-import MessageBox from "@/components/MessageBox";
-import Link from "next/link";
 
-function InstructorCourses() {
+function InstructorVideos() {
   const { logged } = useContext(LoginContext);
-  const params = useParams();
-  const [courses, setCourses] = useState([]);
   const [showForm, setShowForm] = useState(false);
+  const [videos, setVideos] = useState([]);
   const [messageBox, setMessageBox] = useState({
     show: false,
     message: "",
@@ -24,30 +20,17 @@ function InstructorCourses() {
     noFunction: null,
   });
   const [EditMode, setEditMode] = useState(false);
-  const [selectedCourse, setSelectedCourse] = useState({});
-
+  const [selectedVideo, setSelectedVideo] = useState({});
+  const params = useParams();
+  
+  async function GetVideos() {
+    await fetch(`${API_URL}video/${params.course_id}`)
+      .then((res) => res.json())
+      .then((videos) => setVideos(videos.data));
+  }
   useEffect(() => {
-    async function FetchData() {
-      await fetch(`${API_URL}course/instructor/${params.id}`)
-        .then((res) => res.json())
-        .then((data) => setCourses(data.data));
-    }
-
-    FetchData();
-  }, [courses]);
-
-  const CloseMessageBox = () => {
-    setMessageBox({
-      show: false,
-      message: "",
-      yesFunction: null,
-      noFunction: null,
-    });
-  };
-
-  const CloseCourseForm = () => {
-    setShowForm(false);
-  };
+    GetVideos();
+  }, [videos]);
 
   const CreateMessageBox = (message, yesFunction, noFunction) => {
     setMessageBox({
@@ -58,14 +41,27 @@ function InstructorCourses() {
     });
   };
 
-  const DeleteCourse = async (courseId) => {
-    await fetch(`${API_URL}course/${courseId}`, {
+  const CloseMessageBox = () => {
+    setMessageBox({
+      show: false,
+      message: "",
+      yesFunction: null,
+      noFunction: null,
+    });
+  };
+
+  const CloseVideoForm = () => {
+    setShowForm(false);
+  };
+
+  const DeleteVideo = async (video_src) => {
+    await fetch(`${API_URL}video/source/${video_src}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 200) {
-          toast.success("Course Has Been Deleted Successfully", {
+          toast.success("Video Has Been Deleted Successfully", {
             closeOnClick: true,
             autoClose: 2000,
             theme: "dark",
@@ -100,21 +96,21 @@ function InstructorCourses() {
                 <div>
                   <button
                     className={styles.closeFormButton}
-                    onClick={CloseCourseForm}
+                    onClick={CloseVideoForm}
                   >
                     <FontAwesomeIcon icon={fas.faX} />
                   </button>
-                  <CourseForm
+                  <VideoForm
                     EditMode={EditMode}
-                    instructorId={params.id}
-                    courseId={selectedCourse.id}
-                    CloseForm={CloseCourseForm}
+                    video_src={selectedVideo.video_src}
+                    courseId={params.course_id}
+                    CloseForm={CloseVideoForm}
                   />
                 </div>
               )}
 
               <div className={styles.header}>
-                <h1>Your Courses:</h1>
+                <h1>Videos:</h1>
                 <button
                   onClick={() => {
                     setEditMode(false);
@@ -125,45 +121,35 @@ function InstructorCourses() {
                 </button>
               </div>
 
-              {courses ? (
-                <div className={styles.coursesTable}>
+              {videos ? (
+                <div className={styles.videosTable}>
                   <table>
                     <thead>
                       <tr>
-                        <th>#</th>
                         <th>Title</th>
                         <th>Description</th>
-                        <th>Price</th>
-                        <th>Level</th>
-                        <th>length</th>
-                        <th>Publish Date</th>
+                        <th>Duration</th>
                         <th>Operation</th>
                       </tr>
                     </thead>
 
                     <tbody>
-                      {courses.map((course) => {
+                      {videos.map((video) => {
                         return (
-                          <tr key={course.id}>
-                            <td><Link href={`courses/${course.id}/videos`}>{course.id}</Link></td>
-                            <td>{course.title}</td>
+                          <tr key={video.video_src}>
+                            <td>{video.title}</td>
                             <td>
-                              {course.description.length > 48
-                                ? `${course.description.slice(0, 48)}...`
-                                : course.description}
+                              {video.description.length > 48
+                                ? `${video.description.slice(0, 48)}...`
+                                : video.description}
                             </td>
-                            <td>${course.price}</td>
-                            <td>{course.level}</td>
-                            <td>{course.length}</td>
-                            <td style={{ width: "150px" }}>
-                              {course.publishDate.slice(0, 10)}
-                            </td>
+                            <td>{video.duration}</td>
                             <td className={styles.OperationCell}>
                               <div>
                                 <button
                                   className={styles.EditBtn}
                                   onClick={() => {
-                                    setSelectedCourse(course);
+                                    setSelectedVideo(video);
                                     setEditMode(true);
                                     setShowForm(true);
                                   }}
@@ -176,9 +162,9 @@ function InstructorCourses() {
                                   className={styles.DeleteBtn}
                                   onClick={() => {
                                     CreateMessageBox(
-                                      `Are You Sure You Want To Delete ${course.title}`,
+                                      `Are You Sure You Want To Delete ${video.title}`,
                                       () => {
-                                        DeleteCourse(course.id);
+                                        DeleteVideo(video.video_src);
                                       },
                                       CloseMessageBox
                                     );
@@ -195,7 +181,7 @@ function InstructorCourses() {
                   </table>
                 </div>
               ) : (
-                <h1>No Courses Found</h1>
+                <h1>No Videos Yet.</h1>
               )}
             </>
           ) : (
@@ -209,4 +195,4 @@ function InstructorCourses() {
   );
 }
 
-export default InstructorCourses;
+export default InstructorVideos;
