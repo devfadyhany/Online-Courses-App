@@ -95,11 +95,19 @@ export default function page() {
         <div className={styles.imgPart}>
           <img src={`${API_URL}/course/img/${course.image}`} />
           {enrollment ? (
-            <h1>Purchased</h1>
+            <button
+              className={styles.purchaseBtn}
+              onClick={() => {
+                router.push(
+                  `/course/${params.id}/watch?video=${videos[0].video_src}`
+                );
+              }}
+            >
+              Watch
+            </button>
           ) : (
             <button
               onClick={PurchaseCourse}
-              href={`/purchase/${params.id}`}
               disabled={!logged.value}
               className={styles.purchaseBtn}
             >
@@ -119,17 +127,34 @@ export default function page() {
           <>
             <h3>Videos</h3>
             <ul>
-              {videos.map((video, index) => {
-                return (
-                  <li key={index}>
-                    <Link href={`/course/${params.id}/watch?video=${video.video_src}`}>
-                      <FontAwesomeIcon icon={fas.faCirclePlay} />
-                      {index + 1 < 10 ? `0${index + 1}` : index + 1}-
-                      {video.title}
-                    </Link>
-                  </li>
-                );
-              })}
+              {enrollment ? (
+                <>
+                  {videos.map((video, index) => {
+                    return (
+                      <li key={index}>
+                        <Link
+                          href={`/course/${params.id}/watch?video=${video.video_src}`}
+                        >
+                          <FontAwesomeIcon icon={fas.faCirclePlay} />
+                          {index + 1 < 10 ? `0${index + 1}` : index + 1}-
+                          {video.title}
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </>
+              ) : (
+                <>
+                  {videos.map((video, index) => {
+                    return (
+                      <li style={{ cursor: "auto" }} key={index}>
+                        {index + 1 < 10 ? `0${index + 1}` : index + 1}-
+                        {video.title}
+                      </li>
+                    );
+                  })}
+                </>
+              )}
             </ul>
           </>
         ) : (

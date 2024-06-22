@@ -5,12 +5,14 @@ import styles from "@/styles/watch/page.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { API_URL } from "@/app/layout";
+import { useRouter } from "next/navigation";
 
-function VideoPlayer({ selectedVideoSrc }) {
+function VideoPlayer({ selectedVideoSrc, videosList, course_id }) {
+  const router = useRouter();
+
   const video = useRef(null);
   const videoContainer = useRef(null);
   const volumeSlider = useRef(null);
-  //   const timelineContainer = useRef(null);
 
   const [videoPlaying, setVideoPlaying] = useState(false);
   const [overlay, setOverlay] = useState({
@@ -63,6 +65,8 @@ function VideoPlayer({ selectedVideoSrc }) {
   };
 
   const changePlaybackSpeed = () => {
+    if (video.current == null) return;
+
     let newPlaybackRate = video.current.playbackRate + 0.25;
     if (newPlaybackRate > 2) newPlaybackRate = 0.25;
     video.current.playbackRate = newPlaybackRate;
@@ -102,6 +106,8 @@ function VideoPlayer({ selectedVideoSrc }) {
   };
 
   const skip = (skipAmount) => {
+    if (video.current == null) return;
+
     video.current.currentTime += skipAmount;
 
     if (skipAmount > 0) {
@@ -131,11 +137,15 @@ function VideoPlayer({ selectedVideoSrc }) {
   };
 
   const toggleMute = () => {
+    if (video.current == null) return;
+
     video.current.muted = !video.current.muted;
     setMuted(!muted);
   };
 
   const changeVol = (amount) => {
+    if (video.current == null) return;
+
     if (video.current.volume + amount <= 0) {
       video.current.volume = 0;
     } else if (video.current.volume + amount >= 1) {
@@ -162,6 +172,8 @@ function VideoPlayer({ selectedVideoSrc }) {
   };
 
   const toggleFullScreenMode = () => {
+    if (videoContainer.current == null) return;
+
     if (document.fullscreenElement == null) {
       videoContainer.current.requestFullscreen();
       setFullscreenState(true);
@@ -172,6 +184,8 @@ function VideoPlayer({ selectedVideoSrc }) {
   };
 
   const togglePlay = async () => {
+    if (video.current == null) return;
+
     video.current.paused ? video.current.play() : video.current.pause();
 
     if (video.current.paused) {
@@ -210,7 +224,6 @@ function VideoPlayer({ selectedVideoSrc }) {
       onKeyDown={(e) => {
         HandleShortcuts(e);
       }}
-      data-volume-level="high"
     >
       {showOverlay && (
         <div className={`${styles.iconOverlay}`}>
@@ -300,6 +313,22 @@ function VideoPlayer({ selectedVideoSrc }) {
             <div className={styles.totalTime}>{duration}</div>
           </div>
 
+          <select
+            className={styles.videosList}
+            value={selectedVideoSrc}
+            onChange={(e) => {
+              router.push(`/course/${course_id}/watch?video=${e.target.value}`);
+            }}
+          >
+            {videosList.map((video) => {
+              return (
+                <option key={video.video_src} value={video.video_src}>
+                  {video.title}
+                </option>
+              );
+            })}
+          </select>
+
           <button
             onClick={changePlaybackSpeed}
             className={`${styles.speedBtn} ${styles.wide}`}
@@ -340,7 +369,7 @@ function VideoPlayer({ selectedVideoSrc }) {
           if (video.current.muted || video.current.volume === 0) {
             volumeSlider.current.value = 0;
             setMuted(true);
-          }else {
+          } else {
             setMuted(false);
           }
           videoContainer.current.dataset.volumeLevel = volumeLevel;
