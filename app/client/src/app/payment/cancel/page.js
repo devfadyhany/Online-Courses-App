@@ -1,9 +1,9 @@
 import React from 'react'
 
-function cancelPayment() {
+function CancelPayment() {
   return (
-    <div>cancelPayment</div>
+    <div>CancelPayment</div>
   )
 }
 
-export default cancelPayment
+export default CancelPayment

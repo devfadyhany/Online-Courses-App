@@ -57,7 +57,7 @@ export default function page() {
 
   useEffect(() => {
     GetCourse();
-  }, []);
+  });
 
   useEffect(() => {
     GetUserEnrolls();

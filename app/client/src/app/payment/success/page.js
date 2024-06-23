@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect } from "react";
 import { toast } from "react-toastify";
 
-function successPayment() {
+function SuccessPayment() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -35,9 +35,9 @@ function successPayment() {
 
   useEffect(() => {
     StoreEnroll();
-  }, [searchParams]);
+  });
 
-  return <div>successPayment</div>;
+  return <div>SuccessPayment</div>;
 }
 
-export default successPayment;
+export default SuccessPayment;
