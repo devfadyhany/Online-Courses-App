@@ -8,6 +8,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { API_URL } from "@/app/layout";
+import MessageBox from "@/components/MessageBox";
 
 function InstructorVideos() {
   const { logged } = useContext(LoginContext);

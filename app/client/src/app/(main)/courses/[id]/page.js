@@ -9,7 +9,7 @@ import { LoginContext } from "@/components/LoginContext";
 import { API_URL } from "@/app/layout";
 import Link from "next/link";
 
-export default function page() {
+export default function CourseDetails() {
   const params = useParams();
   const router = useRouter();
   const [course, setCourse] = useState({});

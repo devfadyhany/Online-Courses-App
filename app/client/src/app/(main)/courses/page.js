@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Card from "@/components/Card";
 import { API_URL } from "@/app/layout";
 
-export default function page() {
+export default function CoursesPage() {
   const [courses, setCourses] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [level, setLevel] = useState("");
