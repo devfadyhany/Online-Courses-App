@@ -12,7 +12,7 @@ const metadata = {
   description: "Created by fady hany",
 };
 
-export const API_URL = "https://online-edu-app.onrender.com:8000/api/v1/";
+export const API_URL = "https://online-edu-app.onrender.com/api/v1/";
 
 export default function RootLayout({ children }) {
   return (
