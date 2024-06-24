@@ -19,7 +19,7 @@ function Register() {
   const router = useRouter();
   const formData = new FormData();
 
-  const ValidData = ({ username, password, email, gender, image }) => {
+  const ValidData = (username, password, email, gender, image) => {
     if (username.length < 3 || email.length < 3) {
       return false;
     }
@@ -28,10 +28,10 @@ function Register() {
       return false;
     }
 
-    if (gender !== "M" || gender !== "F") {
+    if (gender !== "M" && gender !== "F") {
       return false;
     }
-
+    
     if (!image) {
       return false;
     }
@@ -42,9 +42,9 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const user = { username, password, email, gender, image };
+    if (ValidData(username, password, email, gender, image)) {
+      console.log("here");
 
-    if (ValidData(user)) {
       const file = new File([image], `${Date.now()}${image.name}`);
       formData.append("image", file);
 
