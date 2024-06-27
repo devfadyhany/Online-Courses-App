@@ -17,7 +17,6 @@ function UserCourses() {
         .then((res) => res.json())
         .then((data) => {
           setEnrolls(data.data);
-        //   GetUserCourses(data.data);
         });
     }
   };
@@ -33,12 +32,20 @@ function UserCourses() {
   };
 
   useEffect(() => {
-    GetUserEnrolls();
+    try {
+      GetUserEnrolls();
+    } catch (err) {
+      console.log("Failed To Get User Enrolls.");
+    }
   }, [logged.value]);
 
   useEffect(() => {
-    GetUserCourses(enrolls);
-  }, [enrolls])
+    try {
+      GetUserCourses(enrolls);
+    } catch (err) {
+      console.log("Failed To Retreive User Courses.");
+    }
+  }, [enrolls]);
 
   return (
     <div className="container">

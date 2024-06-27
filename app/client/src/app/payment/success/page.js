@@ -34,7 +34,11 @@ function SuccessPayment() {
   };
 
   useEffect(() => {
-    StoreEnroll();
+    try {
+      StoreEnroll();
+    } catch (err) {
+      console.log("Failed To Store Payment Proccess.");
+    }
   });
 
   return <div>SuccessPayment</div>;

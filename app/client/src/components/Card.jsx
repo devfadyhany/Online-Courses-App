@@ -8,10 +8,18 @@ import { API_URL } from "@/app/layout";
 export default function Card({ course }) {
   const [author, setAuthor] = useState("");
 
+  const GetAuthor = async () => {
+    await fetch(`${API_URL}/user/${course.userId}`)
+    .then((res) => res.json())
+    .then((result) => setAuthor(result.data.name));
+  }
+
   useEffect(() => {
-    fetch(`${API_URL}/user/${course.userId}`)
-      .then((res) => res.json())
-      .then((data) => setAuthor(data.data.name));
+    try{
+      GetAuthor();
+    }catch(err){
+      console.log("Failed To Retreive Course Author");
+    }
   }, []);
 
   return (

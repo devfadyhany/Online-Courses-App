@@ -25,8 +25,12 @@ function WatchCourse() {
   };
 
   useEffect(() => {
-    GetVideos();
-    GetSelectedVideo();
+    try {
+      GetVideos();
+      GetSelectedVideo();
+    } catch (err) {
+      console.log("Failed To Retreive Videos");
+    }
   }, [searchParams]);
 
   return (

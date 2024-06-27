@@ -1,3 +1,3 @@
-export default function MainLayout({ children }) {
+export default function AuthLayout({ children }) {
   return <>{children}</>;
 }

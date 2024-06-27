@@ -31,7 +31,7 @@ const VideoForm = ({ EditMode, video_src, CloseForm }) => {
     }
   }, []);
 
-  const ValidData = (title, description) => {
+  const ValidData = (title, description, duration) => {
     if (title.length < 3) {
       toast.error("Invalid title", {
         closeOnClick: true,
@@ -47,6 +47,10 @@ const VideoForm = ({ EditMode, video_src, CloseForm }) => {
         autoClose: 2000,
         theme: "dark",
       });
+      return false;
+    }
+
+    if (duration == 0){
       return false;
     }
 

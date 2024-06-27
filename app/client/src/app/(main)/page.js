@@ -1,12 +1,10 @@
 "use client";
-
-import Card from "@/components/Card";
+import { API_URL } from "../layout";
+import { useContext, useEffect, useState } from "react";
 import { LoginContext } from "@/components/LoginContext";
-
 import styles from "@/styles/home/page.module.css";
 import Link from "next/link";
-import { useContext, useEffect, useState } from "react";
-import { API_URL } from "../layout";
+import Card from "@/components/Card";
 
 export default function Home() {
   const [courses, setCourses] = useState([]);
@@ -15,11 +13,15 @@ export default function Home() {
   const GetAllCourses = async () => {
     return await fetch(`${API_URL}/course`)
       .then((res) => res.json())
-      .then((data) => setCourses(data.data));
+      .then((result) => setCourses(result.data));
   };
 
   useEffect(() => {
-    GetAllCourses();
+    try {
+      GetAllCourses();
+    } catch (err) {
+      console.log("Failed To Retrive Courses.");
+    }
   }, [courses]);
 
   return (
@@ -43,9 +45,12 @@ export default function Home() {
 
       <section className={`container ${styles.latestCourses}`}>
         {courses ? (
-          courses.map((course) => {
-            return <Card key={course.id} course={course} />;
-          })
+          courses
+            .slice(0)
+            .slice(-3)
+            .map((course) => {
+              return <Card key={course.id} course={course} />;
+            })
         ) : (
           <h1 style={{ color: "white" }}>No Courses Found!</h1>
         )}

@@ -1,12 +1,12 @@
 "use client";
 
+import { API_URL } from "@/app/layout";
 import React, { useContext, useEffect, useState } from "react";
+import { LoginContext } from "@/components/LoginContext";
 import { useParams, useRouter } from "next/navigation";
 import styles from "@/styles/courseDetails/page.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { fas } from "@fortawesome/free-solid-svg-icons";
-import { LoginContext } from "@/components/LoginContext";
-import { API_URL } from "@/app/layout";
 import Link from "next/link";
 
 export default function CourseDetails() {
@@ -21,11 +21,11 @@ export default function CourseDetails() {
   const GetCourse = async () => {
     return await fetch(`${API_URL}/course/${params.id}`)
       .then((res) => res.json())
-      .then(async (data) => {
-        setCourse(data.data);
-        await fetch(`${API_URL}/user/${data.data.userId}`)
+      .then(async (result) => {
+        setCourse(result.data);
+        await fetch(`${API_URL}/user/${result.data.userId}`)
           .then((res) => res.json())
-          .then((data) => setAuthor(data.data.name));
+          .then((author) => setAuthor(author.data.name));
 
         await fetch(`${API_URL}/video/${params.id}`)
           .then((res) => res.json())
@@ -37,8 +37,8 @@ export default function CourseDetails() {
     if (logged.value) {
       return await fetch(`${API_URL}enroll/${logged.user.id}`)
         .then((res) => res.json())
-        .then((data) => {
-          CheckEnrollment(data.data);
+        .then((result) => {
+          CheckEnrollment(result.data);
         });
     }
   };
@@ -56,11 +56,19 @@ export default function CourseDetails() {
   };
 
   useEffect(() => {
-    GetCourse();
-  });
+    try {
+      GetCourse();
+    } catch (err) {
+      console.log("Failed To Retreive Course Data");
+    }
+  }, []);
 
   useEffect(() => {
-    GetUserEnrolls();
+    try {
+      GetUserEnrolls();
+    } catch (err) {
+      console.log("Failed To Check User Enrollment");
+    }
   }, [logged.value]);
 
   const PurchaseCourse = async () => {
@@ -75,7 +83,7 @@ export default function CourseDetails() {
       }),
     })
       .then((res) => res.json())
-      .then((data) => router.push(data.url));
+      .then((result) => router.push(result.url));
   };
 
   const contentBackground = {
@@ -148,6 +156,7 @@ export default function CourseDetails() {
                   {videos.map((video, index) => {
                     return (
                       <li style={{ cursor: "auto" }} key={index}>
+                        <FontAwesomeIcon icon={fas.faLock} />
                         {index + 1 < 10 ? `0${index + 1}` : index + 1}-
                         {video.title}
                       </li>

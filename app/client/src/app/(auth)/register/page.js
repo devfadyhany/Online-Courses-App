@@ -20,19 +20,43 @@ function Register() {
   const formData = new FormData();
 
   const ValidData = (username, password, email, gender, image) => {
-    if (username.length < 3 || email.length < 3) {
+    if (username.length < 3) {
+      toast.error("Invaild Username, username should be greater than 3 characters", {
+        closeOnClick: true,
+        autoClose: 2000,
+        theme: "dark",
+      });
+      return false;
+    }
+
+    if (email.length < 3){
       return false;
     }
 
     if (password.length < 8) {
+      toast.error("Invaild Password, password should be greater than 8 characters", {
+        closeOnClick: true,
+        autoClose: 2000,
+        theme: "dark",
+      });
       return false;
     }
 
     if (gender !== "M" && gender !== "F") {
+      toast.error("Please choose a gender", {
+        closeOnClick: true,
+        autoClose: 2000,
+        theme: "dark",
+      });
       return false;
     }
     
     if (!image) {
+      toast.error("Please add an image", {
+        closeOnClick: true,
+        autoClose: 2000,
+        theme: "dark",
+      });
       return false;
     }
 
@@ -43,8 +67,6 @@ function Register() {
     e.preventDefault();
 
     if (ValidData(username, password, email, gender, image)) {
-      console.log("here");
-
       const file = new File([image], `${Date.now()}${image.name}`);
       formData.append("image", file);
 
@@ -75,7 +97,7 @@ function Register() {
               autoClose: 2000,
               theme: "dark",
             });
-            router.push("/");
+            router.push("/login");
           } else {
             toast.error(data.message, {
               closeOnClick: true,

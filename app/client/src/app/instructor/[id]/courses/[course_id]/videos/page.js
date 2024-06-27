@@ -23,14 +23,19 @@ function InstructorVideos() {
   const [EditMode, setEditMode] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState({});
   const params = useParams();
-  
+
   async function GetVideos() {
     await fetch(`${API_URL}video/${params.course_id}`)
       .then((res) => res.json())
       .then((videos) => setVideos(videos.data));
   }
+
   useEffect(() => {
-    GetVideos();
+    try {
+      GetVideos();
+    } catch (err) {
+      console.log("Failed To Retreive Course Videos.");
+    }
   }, [videos]);
 
   const CreateMessageBox = (message, yesFunction, noFunction) => {
@@ -56,26 +61,30 @@ function InstructorVideos() {
   };
 
   const DeleteVideo = async (video_src) => {
-    await fetch(`${API_URL}video/source/${video_src}`, {
-      method: "DELETE",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.status === 200) {
-          toast.success("Video Has Been Deleted Successfully", {
-            closeOnClick: true,
-            autoClose: 2000,
-            theme: "dark",
-          });
-        } else {
-          toast.error(data.message, {
-            closeOnClick: true,
-            autoClose: 2000,
-            theme: "dark",
-          });
-        }
-      });
-
+    try {
+      await fetch(`${API_URL}video/source/${video_src}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.status === 200) {
+            toast.success("Video Has Been Deleted Successfully", {
+              closeOnClick: true,
+              autoClose: 2000,
+              theme: "dark",
+            });
+          } else {
+            toast.error(data.message, {
+              closeOnClick: true,
+              autoClose: 2000,
+              theme: "dark",
+            });
+          }
+        });
+    } catch (err) {
+      console.log("Failed To Delete Video");
+    }
+    
     CloseMessageBox();
   };
 

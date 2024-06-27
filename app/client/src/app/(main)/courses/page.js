@@ -1,13 +1,11 @@
 "use client";
 
+import { API_URL } from "@/app/layout";
 import React, { useEffect, useState } from "react";
 import styles from "@/styles/courses/page.module.css";
-
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import Card from "@/components/Card";
-import { API_URL } from "@/app/layout";
 
 export default function CoursesPage() {
   const [courses, setCourses] = useState([]);
@@ -20,7 +18,7 @@ export default function CoursesPage() {
       `${API_URL}/course?title=${searchQuery}&level=${level}&price=${price}`
     )
       .then((res) => res.json())
-      .then((data) => setCourses(data.data));
+      .then((result) => setCourses(result.data));
   };
 
   const ClearFilters = () => {
@@ -30,7 +28,11 @@ export default function CoursesPage() {
   };
 
   useEffect(() => {
-    GetAllCourses();
+    try {
+      GetAllCourses();
+    } catch (err) {
+      console.log("Failed To Retrive Courses.");
+    }
   }, [searchQuery, level, price]);
 
   return (
