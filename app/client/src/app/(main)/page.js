@@ -8,18 +8,19 @@ import Card from "@/components/Card";
 
 export default function Home() {
   const [courses, setCourses] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { logged } = useContext(LoginContext);
 
   const GetAllCourses = async () => {
     return await fetch(`${API_URL}/course`)
       .then((res) => res.json())
-      .then((result) => setCourses(result.data));
+      .then((result) => {
+        setCourses(result.data);
+      });
   };
 
   useEffect(() => {
     try {
-      setLoading(true);
       GetAllCourses();
     } catch (err) {
       console.log("Failed To Retrive Courses.");
@@ -49,7 +50,7 @@ export default function Home() {
 
       <section className={`container ${styles.latestCourses}`}>
         {loading ? (
-          <h1>Loading...</h1>
+          <h1 style={{ color: "white" }}>Loading...</h1>
         ) : (
           <>
             {courses ? (

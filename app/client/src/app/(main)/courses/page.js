@@ -9,7 +9,7 @@ import Card from "@/components/Card";
 
 export default function CoursesPage() {
   const [courses, setCourses] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [level, setLevel] = useState("");
   const [price, setPrice] = useState("");
@@ -92,7 +92,7 @@ export default function CoursesPage() {
       <section className="container">
         <div className={styles.coursesSection}>
           {loading ? (
-            <h1>Loading...</h1>
+            <h1 style={{ color: "white" }}>Loading...</h1>
           ) : (
             <>
               {courses ? (
