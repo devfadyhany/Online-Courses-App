@@ -9,6 +9,7 @@ import Card from "@/components/Card";
 
 export default function CoursesPage() {
   const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [level, setLevel] = useState("");
   const [price, setPrice] = useState("");
@@ -29,9 +30,12 @@ export default function CoursesPage() {
 
   useEffect(() => {
     try {
+      setLoading(true);
       GetAllCourses();
     } catch (err) {
       console.log("Failed To Retrive Courses.");
+    } finally {
+      setLoading(false);
     }
   }, [searchQuery, level, price]);
 
@@ -87,12 +91,18 @@ export default function CoursesPage() {
 
       <section className="container">
         <div className={styles.coursesSection}>
-          {courses ? (
-            courses.map((course) => {
-              return <Card key={course.id} course={course} />;
-            })
+          {loading ? (
+            <h1>Loading...</h1>
           ) : (
-            <h1 style={{ color: "white" }}>No Courses Found</h1>
+            <>
+              {courses ? (
+                courses.map((course) => {
+                  return <Card key={course.id} course={course} />;
+                })
+              ) : (
+                <h1 style={{ color: "white" }}>No Courses Found</h1>
+              )}
+            </>
           )}
         </div>
       </section>

@@ -8,6 +8,7 @@ import { API_URL } from "@/app/layout";
 import { toast } from "react-toastify";
 
 function Register() {
+  const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,24 +22,30 @@ function Register() {
 
   const ValidData = (username, password, email, gender, image) => {
     if (username.length < 3) {
-      toast.error("Invaild Username, username should be greater than 3 characters", {
-        closeOnClick: true,
-        autoClose: 2000,
-        theme: "dark",
-      });
+      toast.error(
+        "Invaild Username, username should be greater than 3 characters",
+        {
+          closeOnClick: true,
+          autoClose: 2000,
+          theme: "dark",
+        }
+      );
       return false;
     }
 
-    if (email.length < 3){
+    if (email.length < 3) {
       return false;
     }
 
     if (password.length < 8) {
-      toast.error("Invaild Password, password should be greater than 8 characters", {
-        closeOnClick: true,
-        autoClose: 2000,
-        theme: "dark",
-      });
+      toast.error(
+        "Invaild Password, password should be greater than 8 characters",
+        {
+          closeOnClick: true,
+          autoClose: 2000,
+          theme: "dark",
+        }
+      );
       return false;
     }
 
@@ -50,7 +57,7 @@ function Register() {
       });
       return false;
     }
-    
+
     if (!image) {
       toast.error("Please add an image", {
         closeOnClick: true,
@@ -66,6 +73,7 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setLoading(true);
     if (ValidData(username, password, email, gender, image)) {
       const file = new File([image], `${Date.now()}${image.name}`);
       formData.append("image", file);
@@ -107,6 +115,7 @@ function Register() {
           }
         });
     }
+    setLoading(false);
   };
 
   return (
@@ -204,7 +213,12 @@ function Register() {
           {preview && <img src={preview} width={100} height={100} />}
         </div>
 
-        <input className={styles.SubmitBtn} type="submit" value="Register" />
+        <input
+          className={styles.SubmitBtn}
+          type="submit"
+          disabled={loading}
+          value={loading ? "Loading..." : "Register"}
+        />
 
         <Link href="/login">Already Have an Account?</Link>
       </form>

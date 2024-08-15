@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 
 function Login() {
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const cookies = useCookies();
@@ -17,6 +18,7 @@ function Login() {
   const submitHandler = async (e) => {
     e.preventDefault();
 
+    setLoading(true);
     await fetch(`${API_URL}user/login`, {
       method: "POST",
       headers: {
@@ -42,6 +44,7 @@ function Login() {
           });
         }
       });
+    setLoading(false);
   };
 
   return (
@@ -66,7 +69,12 @@ function Login() {
           />
         </div>
 
-        <input className={styles.SubmitBtn} type="submit" value="Login" />
+        <input
+          className={styles.SubmitBtn}
+          type="submit"
+          disabled={loading}
+          value={loading ? "Loading..." : "Login"}
+        />
 
         <Link href="/register">Don't Have an Account?</Link>
       </form>

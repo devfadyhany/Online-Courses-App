@@ -8,6 +8,7 @@ import Card from "@/components/Card";
 
 export default function Home() {
   const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(false);
   const { logged } = useContext(LoginContext);
 
   const GetAllCourses = async () => {
@@ -18,9 +19,12 @@ export default function Home() {
 
   useEffect(() => {
     try {
+      setLoading(true);
       GetAllCourses();
     } catch (err) {
       console.log("Failed To Retrive Courses.");
+    } finally {
+      setLoading(false);
     }
   }, [courses]);
 
@@ -44,15 +48,21 @@ export default function Home() {
       <h1 className="section-title">Latest Courses</h1>
 
       <section className={`container ${styles.latestCourses}`}>
-        {courses ? (
-          courses
-            .slice(0)
-            .slice(-3)
-            .map((course) => {
-              return <Card key={course.id} course={course} />;
-            })
+        {loading ? (
+          <h1>Loading...</h1>
         ) : (
-          <h1 style={{ color: "white" }}>No Courses Found!</h1>
+          <>
+            {courses ? (
+              courses
+                .slice(0)
+                .slice(-3)
+                .map((course) => {
+                  return <Card key={course.id} course={course} />;
+                })
+            ) : (
+              <h1 style={{ color: "white" }}>No Courses Found!</h1>
+            )}
+          </>
         )}
       </section>
 
