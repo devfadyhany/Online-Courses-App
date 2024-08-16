@@ -12,11 +12,13 @@ export default function Home() {
   const { logged } = useContext(LoginContext);
 
   const GetAllCourses = async () => {
-    return await fetch(`${API_URL}/course`)
+    setLoading(true);
+    await fetch(`${API_URL}/course`)
       .then((res) => res.json())
       .then((result) => {
         setCourses(result.data);
       });
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -24,10 +26,8 @@ export default function Home() {
       GetAllCourses();
     } catch (err) {
       console.log("Failed To Retrive Courses.");
-    } finally {
-      setLoading(false);
     }
-  }, [courses]);
+  }, []);
 
   return (
     <>

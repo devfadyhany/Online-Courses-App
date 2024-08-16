@@ -15,11 +15,13 @@ export default function CoursesPage() {
   const [price, setPrice] = useState("");
 
   const GetAllCourses = async () => {
-    return await fetch(
+    setLoading(true);
+    await fetch(
       `${API_URL}/course?title=${searchQuery}&level=${level}&price=${price}`
     )
       .then((res) => res.json())
       .then((result) => setCourses(result.data));
+    setLoading(false);
   };
 
   const ClearFilters = () => {
@@ -30,12 +32,9 @@ export default function CoursesPage() {
 
   useEffect(() => {
     try {
-      setLoading(true);
       GetAllCourses();
     } catch (err) {
       console.log("Failed To Retrive Courses.");
-    } finally {
-      setLoading(false);
     }
   }, [searchQuery, level, price]);
 
