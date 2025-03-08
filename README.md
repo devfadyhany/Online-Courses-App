@@ -1,4 +1,4 @@
-# Online-Edu-App
+# Online-Courses-App
 Full-stack web applications inspired by sites such as Udemy-Coursera
 <hr>
 
